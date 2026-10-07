@@ -1,0 +1,17 @@
+{
+  "day": 2,
+  "title": "Make AI write exactly like YOU",
+  "voice": {"name": "af_heart", "speed": 1.2, "gap": 0.14, "lead_in": 0.05},
+  "segments": [
+    {"id": "hook",    "say": "Everyone can tell when AI wrote your post."},
+    {"id": "title",   "say": "Day two. Make AI write exactly like you.",
+                      "show": "Day 02. Make AI write exactly like you."},
+    {"id": "problem", "say": "Most people type, write a LinkedIn post... and get: thrilled to embark on this journey.", "gap_after": 0.4},
+    {"id": "fix",     "say": "Fix it in three steps. Feed: paste three things you actually wrote. Extract: ask it to turn your tone and favorite words into a style guide. Apply: use that guide for every draft.",
+                      "show": "Fix it in 3 steps. Feed: paste 3 things you actually wrote. Extract: ask it to turn your tone and favorite words into a style guide. Apply: use that guide for every draft."},
+    {"id": "proof",   "say": "Same request. Before: a robot. After: you.", "gap_after": 0.6},
+    {"id": "recap",   "say": "Feed, extract, apply. Save this.", "gap_after": 0.35},
+    {"id": "tease",   "say": "Tomorrow, day three: make AI ask you questions first. Follow so you don't miss it.",
+                      "show": "Tomorrow, Day 03: make AI ask you questions first. Follow so you don't miss it."}
+  ]
+}

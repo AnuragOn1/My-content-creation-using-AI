@@ -1,0 +1,4 @@
+engine/node_modules/
+engine/models/
+reels/*/build/
+__pycache__/
