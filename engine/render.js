@@ -27,6 +27,9 @@ function makeRenderer(reelDir) {
   const caps = fx.buildCaptions(tl.words());
   const out = createCanvas(W, H);
   const L = createCanvas(W, H);
+  const BG = createCanvas(W, H);
+  const spec = JSON.parse(fs.readFileSync(path.join(reelDir, 'reel.json'), 'utf8'));
+  D.theme.glass = process.env.GLASS || spec.glass || null;
 
   const drawScene = (ctx, sc, t) => {
     ctx.save();
@@ -43,7 +46,15 @@ function makeRenderer(reelDir) {
     const tr = opts.scene ? null : S.transitions.find((x) => t >= x.at - x.dur / 2 && t < x.at + x.dur / 2);
     const p = tr ? (t - (tr.at - tr.dur / 2)) / tr.dur : 0;
     const streak = tr && tr.type === 'whip' ? 1 - Math.abs(p - 0.5) * 2 : 0;
-    bg.draw(ctx, t, streak);
+    if (tr) {
+      // scenes render on a transparent layer mid-transition; glass needs the background under it
+      bg.draw(BG.getContext('2d'), t, streak);
+      ctx.drawImage(BG, 0, 0);
+      D.theme.under = BG;
+    } else {
+      bg.draw(ctx, t, streak);
+      D.theme.under = null;
+    }
 
     const sh = opts.clean ? null : shake.at(t);
     ctx.save();

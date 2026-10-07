@@ -4,6 +4,7 @@
 const path = require('path');
 const { createCanvas, GlobalFonts } = require('@napi-rs/canvas');
 const { BRAND, clamp, lerp, inv, ease, rng } = require('./core');
+const { glass, theme } = require('./glass');
 
 const FD = path.join(__dirname, '..', 'fonts');
 const F = { x: 'IDX', k: 'IDK', b: 'IDB', s: 'IDS', m: 'IDM', mono: 'JBM', monoM: 'JBMM', monoX: 'JBMX' };
@@ -277,8 +278,14 @@ function panel(ctx, P, t, t0, o = {}) {
   const pt = ease.inOutCubic(inv(t0, t0 + td, t));
   const pf = ease.outCubic(inv(t0 + td * 0.5, t0 + td * 0.5 + 0.3, t));
   const border = o.border || BRAND.border;
+  const useGlass = theme.glass && o.glass !== false;
   ctx.save();
-  if (pf > 0) {
+  if (pf > 0 && useGlass) {
+    glass(ctx, P.x, P.y, P.w, P.h, P.r, {
+      alpha: pf, tone: o.tone, color: o.color, t, glow: o.glow, border: o.border, lw: o.lw,
+      darken: o.darken, saturate: o.saturate, refract: o.refract,
+    });
+  } else if (pf > 0) {
     ctx.save();
     ctx.globalAlpha *= pf * (o.fillAlpha ?? 0.94);
     if (o.glow) {
@@ -306,6 +313,15 @@ function panel(ctx, P, t, t0, o = {}) {
       ctx.arc(hd[0], hd[1], 5, 0, Math.PI * 2);
       ctx.fill();
     }
+  } else if (useGlass) {
+    // glass draws its own specular edge; just fade out the trace colour
+    const settle = ease.outCubic(inv(t0 + td, t0 + td + 0.35, t));
+    if (settle < 1) {
+      ctx.globalAlpha *= 1 - settle;
+      ctx.strokeStyle = BRAND.blue2;
+      rr(ctx, P.x, P.y, P.w, P.h, P.r);
+      ctx.stroke();
+    }
   } else {
     const settle = ease.outCubic(inv(t0 + td, t0 + td + 0.35, t));
     ctx.strokeStyle = border;
@@ -323,6 +339,41 @@ function panel(ctx, P, t, t0, o = {}) {
   }
   ctx.restore();
   return pf;
+}
+
+// A box that is liquid glass when the reel's theme asks for it, solid otherwise.
+function box(ctx, x, y, w, h, r, t, o = {}) {
+  if (theme.glass && o.glass !== false && !theme.cheap) {
+    const accent = o.stroke && o.stroke !== BRAND.border ? o.stroke : undefined;
+    glass(ctx, x, y, w, h, r, { tone: o.tone, color: o.color, t, alpha: o.alpha ?? 1, glow: o.glow, shadow: o.shadow, border: accent, lw: o.lw });
+    return;
+  }
+  if (theme.glass && theme.cheap) {
+    // motion-trail ghost: a plain translucent pane is enough at 12% opacity
+    ctx.save();
+    ctx.globalAlpha *= o.alpha ?? 1;
+    ctx.fillStyle = 'rgba(140,170,220,0.25)';
+    rr(ctx, x, y, w, h, r);
+    ctx.fill();
+    ctx.restore();
+    return;
+  }
+  ctx.save();
+  ctx.globalAlpha *= o.alpha ?? 1;
+  if (o.glow) {
+    ctx.shadowColor = o.glow;
+    ctx.shadowBlur = 40;
+  }
+  ctx.fillStyle = o.fill || 'rgba(16,21,32,0.95)';
+  rr(ctx, x, y, w, h, r);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  if (o.stroke) {
+    ctx.strokeStyle = o.stroke;
+    ctx.lineWidth = o.lw ?? 2;
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 // Monospace word-wrap; returns layout that typing and word lookups share.
@@ -570,12 +621,16 @@ function dayChip(ctx, day, t, cx = 540, cy = 222) {
   const w = 12 + tile + 16 + lw + dw + 26;
   const x = cx - w / 2;
   ctx.save();
-  ctx.fillStyle = 'rgba(16,21,32,0.86)';
-  ctx.strokeStyle = BRAND.border;
-  ctx.lineWidth = 2;
-  rr(ctx, x, cy - h / 2, w, h, h / 2);
-  ctx.fill();
-  ctx.stroke();
+  if (theme.glass) {
+    glass(ctx, x, cy - h / 2, w, h, h / 2, { t, color: 'blue', shadow: false });
+  } else {
+    ctx.fillStyle = 'rgba(16,21,32,0.86)';
+    ctx.strokeStyle = BRAND.border;
+    ctx.lineWidth = 2;
+    rr(ctx, x, cy - h / 2, w, h, h / 2);
+    ctx.fill();
+    ctx.stroke();
+  }
   logo(ctx, x + 12 + tile / 2, cy, tile, t, { glow: false });
   setFont(ctx, size, F.x, 2);
   ctx.textAlign = 'left';
@@ -729,7 +784,9 @@ function fly(ctx, t, t0, dur, from, ctrl, to, spin, drawFn) {
       ctx.translate(gx, gy);
       ctx.rotate(spin * (1 - ease.outBack(clamp(raw - g * 0.05), 1.3)));
       ctx.scale(sc, sc);
+      theme.cheap = true;
       drawFn(ctx);
+      theme.cheap = false;
       ctx.restore();
     }
   }
@@ -825,7 +882,7 @@ module.exports = {
   F, setFont, measure, rr, polyline, strokePartial,
   makeScribble, makeCircle, makeStrike, drawStroke,
   slam, maskUp, fadeUp, highlight,
-  makePanel, panel, makeType, typeFind, typing, wrap, paragraph,
+  makePanel, panel, box, theme, makeType, typeFind, typing, wrap, paragraph,
   odometer, odoTicks, logo, dayChip, pill,
   burst, sparkles, dashedRing, fly, qbez, arrow, check, ctaButton, star,
 };

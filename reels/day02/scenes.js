@@ -94,7 +94,7 @@ module.exports = function build({ tl, cues, D, core }) {
       ctx.rotate(-0.03 + Math.sin(t * 1.4) * 0.004);
       ctx.translate(-CX, -465 + Math.sin(t * 1.7) * 4);
       ctx.globalAlpha = 0.95;
-      D.panel(ctx, card, t, -1);
+      D.panel(ctx, card, t, -1, { tone: 'bad' });
       ctx.fillStyle = '#2A3346';
       ctx.beginPath();
       ctx.arc(162, 382, 22, 0, Math.PI * 2);
@@ -120,12 +120,7 @@ module.exports = function build({ tl, cues, D, core }) {
 
       for (const k of tells) {
         D.fly(ctx, t, k.t0, 0.5, k.from, k.c, k.to, k.spin, (c) => {
-          c.fillStyle = 'rgba(16,21,32,0.95)';
-          c.strokeStyle = 'rgba(255,92,108,0.6)';
-          c.lineWidth = 2.5;
-          D.rr(c, -k.width / 2, -34, k.width, 68, 34);
-          c.fill();
-          c.stroke();
+          D.box(c, -k.width / 2, -34, k.width, 68, 34, t, { tone: 'bad', stroke: 'rgba(255,92,108,0.6)', lw: 2.5 });
           D.setFont(c, 30, F.mono);
           c.textAlign = 'center';
           c.fillStyle = '#FF8A96';
@@ -232,7 +227,7 @@ module.exports = function build({ tl, cues, D, core }) {
 
     return (ctx, t) => {
       D.pill(ctx, 'WHAT MOST PEOPLE DO', CX, 330, t, s0 + 0.02, { dot: BRAND.bad, color: BRAND.text, bg: 'rgba(255,92,108,0.10)', border: 'rgba(255,92,108,0.45)' });
-      const a1 = D.panel(ctx, P1, t, s0 + 0.1);
+      const a1 = D.panel(ctx, P1, t, s0 + 0.1, { tone: 'bad' });
       if (a1 > 0) {
         ctx.save();
         ctx.globalAlpha = a1;
@@ -243,7 +238,7 @@ module.exports = function build({ tl, cues, D, core }) {
         ctx.restore();
         D.typing(ctx, T1, 150, 520, 50, t, tWrite - 0.05, cps1, { color: BRAND.text, hideCursorAfter: tType2 });
       }
-      const a2 = D.panel(ctx, P2, t, tAnd - 0.35);
+      const a2 = D.panel(ctx, P2, t, tAnd - 0.35, { tone: 'bad' });
       if (a2 > 0) {
         ctx.save();
         ctx.globalAlpha = a2;
@@ -357,20 +352,25 @@ module.exports = function build({ tl, cues, D, core }) {
       const dx = slideX(s, t);
       ctx.save();
       ctx.translate(dx, 0);
+      if (D.theme.glass) {
+        // glass mode: a solid number sits BEHIND the card, so the glass refracts it
+        ctx.save();
+        D.rr(ctx, card.x, card.y, card.w, card.h, 34);
+        ctx.clip();
+        D.setFont(ctx, 330, F.k);
+        ctx.textAlign = 'right';
+        const ng = ctx.createLinearGradient(0, card.y, 0, card.y + 290);
+        ng.addColorStop(0, 'rgba(140,190,255,0.40)');
+        ng.addColorStop(1, 'rgba(56,132,255,0.18)');
+        ctx.fillStyle = ng;
+        ctx.fillText(s.n, card.x + card.w - 16 + dx * 0.55, card.y + 290);
+        ctx.restore();
+      }
       // card body
-      ctx.save();
-      ctx.shadowColor = 'rgba(56,132,255,0.35)';
-      ctx.shadowBlur = 50;
-      ctx.fillStyle = 'rgba(16,21,32,0.96)';
-      D.rr(ctx, card.x, card.y, card.w, card.h, 34);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-      ctx.strokeStyle = 'rgba(56,132,255,0.55)';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.restore();
+      D.box(ctx, card.x, card.y, card.w, card.h, 34, t, { glow: 'rgba(56,132,255,0.35)', fill: 'rgba(16,21,32,0.96)', stroke: 'rgba(56,132,255,0.55)', lw: 3 });
       // parallax outline number, clipped to the card
       ctx.save();
+      if (D.theme.glass) ctx.globalAlpha = 0;
       D.rr(ctx, card.x, card.y, card.w, card.h, 34);
       ctx.clip();
       D.setFont(ctx, 330, F.k);
@@ -397,15 +397,7 @@ module.exports = function build({ tl, cues, D, core }) {
       for (const k of tiles) {
         D.fly(ctx, t, k.t0, 0.5, k.from, k.c, k.to, k.spin, (c) => {
           c.save();
-          c.shadowColor = 'rgba(56,132,255,0.5)';
-          c.shadowBlur = 30;
-          c.fillStyle = '#18213A';
-          D.rr(c, -110, -140, 220, 280, 22);
-          c.fill();
-          c.shadowBlur = 0;
-          c.strokeStyle = BRAND.blue;
-          c.lineWidth = 3;
-          c.stroke();
+          D.box(c, -110, -140, 220, 280, 22, t, { glow: 'rgba(56,132,255,0.5)', fill: '#18213A', stroke: BRAND.blue, lw: 3 });
           c.fillStyle = BRAND.blue;
           D.rr(c, -80, -108, 52, 52, 12);
           c.fill();
@@ -425,9 +417,9 @@ module.exports = function build({ tl, cues, D, core }) {
     };
 
     const stepExtract = (ctx, t) => {
-      const a = D.panel(ctx, P2a, t, tExtract + 0.25, { fill: '#0B0F18' });
+      const a = D.panel(ctx, P2a, t, tExtract + 0.25, { glass: false, fill: 'rgba(8,10,16,0.55)', fillAlpha: 1, border: 'rgba(255,255,255,0.12)' });
       if (a > 0) D.typing(ctx, T2, 186, 866, 44, t, tT2, cps2, { color: BRAND.text, hideCursorAfter: chipT[0] });
-      const b = D.panel(ctx, P2b, t, chipT[0] - 0.3, { border: BRAND.blue, glow: 'rgba(56,132,255,0.35)', fill: '#0F1B33' });
+      const b = D.panel(ctx, P2b, t, chipT[0] - 0.3, { glass: false, border: BRAND.blue, glow: 'rgba(56,132,255,0.35)', fill: 'rgba(56,132,255,0.12)', fillAlpha: 1 });
       if (b > 0) {
         ctx.save();
         ctx.globalAlpha = b;
@@ -474,7 +466,7 @@ module.exports = function build({ tl, cues, D, core }) {
     };
 
     const stepApply = (ctx, t) => {
-      const a = D.panel(ctx, P3a, t, tApply + 0.25, { fill: '#0B0F18' });
+      const a = D.panel(ctx, P3a, t, tApply + 0.25, { glass: false, fill: 'rgba(8,10,16,0.55)', fillAlpha: 1, border: 'rgba(255,255,255,0.12)' });
       if (a > 0) D.typing(ctx, T3, 186, 866, 44, t, tT3, cps3, { color: BRAND.text });
       outs.forEach((s, k) => {
         const t0 = outT[k];
@@ -571,7 +563,7 @@ module.exports = function build({ tl, cues, D, core }) {
       D.maskUp(ctx, 'SAME REQUEST', CX, 364, 76, F.k, BRAND.text, t, s0 + 0.08);
       D.fadeUp(ctx, '"write a linkedin post about my 3rd react project"', CX, 424, 25, F.monoM, BRAND.muted, t, tReq);
       // BEFORE
-      const a = D.panel(ctx, PB, t, tBefore - 0.3);
+      const a = D.panel(ctx, PB, t, tBefore - 0.3, { tone: 'bad' });
       if (a > 0) {
         const dim = 1 - 0.5 * ease.outCubic(inv(tRobot, tRobot + 0.3, t));
         D.pill(ctx, 'BEFORE', 230, 470, t, tBefore - 0.1, { size: 22, dot: BRAND.bad, color: BRAND.text, bg: '#1A1414', border: 'rgba(255,92,108,0.6)' });
@@ -580,7 +572,7 @@ module.exports = function build({ tl, cues, D, core }) {
         D.pill(ctx, 'ROBOT', 860, 470, t, tRobot, { size: 22, color: '#FFFFFF', bg: BRAND.bad, border: BRAND.bad });
       }
       // AFTER
-      const b = D.panel(ctx, PA, t, tAfter - 0.3, { border: BRAND.blue, glow: 'rgba(56,132,255,0.45)', fill: '#0F1A30' });
+      const b = D.panel(ctx, PA, t, tAfter - 0.3, { border: BRAND.blue, glow: 'rgba(56,132,255,0.45)', fill: '#0F1A30', tone: 'good' });
       if (b > 0) {
         D.pill(ctx, 'AFTER', 222, 840, t, tAfter - 0.1, { size: 22, dot: BRAND.blue, color: BRAND.text, bg: '#0F1A30', border: BRAND.blue });
         D.paragraph(ctx, after, 150, 968, 68, 48, F.b, BRAND.text, t, tAfter - 0.02, 0.022);
@@ -669,12 +661,7 @@ module.exports = function build({ tl, cues, D, core }) {
         const dx = (1 - p) * 900;
         ctx.save();
         ctx.translate(dx, 0);
-        ctx.fillStyle = 'rgba(16,21,32,0.95)';
-        ctx.strokeStyle = BRAND.border;
-        ctx.lineWidth = 2;
-        D.rr(ctx, 110, y, 860, 128, 26);
-        ctx.fill();
-        ctx.stroke();
+        D.box(ctx, 110, y, 860, 128, 26, t, { stroke: BRAND.border });
         // parallax outline digit
         ctx.save();
         D.rr(ctx, 110, y, 860, 128, 26);
@@ -706,7 +693,7 @@ module.exports = function build({ tl, cues, D, core }) {
         ctx.restore();
       });
 
-      const pt = D.panel(ctx, D.makePanel(110, 1000, 860, 250, 26), t, tTip - 0.35, { border: 'rgba(56,132,255,0.6)', fill: '#0F1A30' });
+      const pt = D.panel(ctx, D.makePanel(110, 1000, 860, 250, 26), t, tTip - 0.35, { border: 'rgba(56,132,255,0.6)', fill: '#0F1A30', tone: 'good' });
       if (pt > 0) {
         ctx.save();
         ctx.globalAlpha = pt;
@@ -770,15 +757,7 @@ module.exports = function build({ tl, cues, D, core }) {
       D.drawStroke(ctx, ul, t, tFirst + 0.05, { color: BRAND.blue2, width: 8, dur: 0.35 });
       for (const q of qs) {
         D.fly(ctx, t, q.t0, 0.5, q.from, q.c, q.to, q.spin, (c) => {
-          c.fillStyle = '#18213A';
-          c.strokeStyle = BRAND.blue;
-          c.lineWidth = 3;
-          c.shadowColor = BRAND.blue;
-          c.shadowBlur = 24;
-          D.rr(c, -46, -46, 92, 92, 24);
-          c.fill();
-          c.shadowBlur = 0;
-          c.stroke();
+          D.box(c, -46, -46, 92, 92, 24, t, { glow: BRAND.blue, fill: '#18213A', stroke: BRAND.blue, lw: 3 });
           D.setFont(c, 60, F.k);
           c.textAlign = 'center';
           c.fillStyle = BRAND.blue2;

@@ -22,8 +22,12 @@ class Background {
 
     this.grid = createCanvas(W + 120, H + 120);
     const gg = this.grid.getContext('2d');
-    gg.fillStyle = 'rgba(140,150,170,0.10)';
-    for (let y = 0; y < H + 120; y += 60) for (let x = 0; x < W + 120; x += 60) gg.fillRect(x, y, 2, 2);
+    // faint blueprint lines: barely there on black, but they give glass panels straight edges to bend
+    gg.fillStyle = 'rgba(140,190,255,0.045)';
+    for (let x = 0; x < W + 120; x += 60) gg.fillRect(x, 0, 1, H + 120);
+    for (let y = 0; y < H + 120; y += 60) gg.fillRect(0, y, W + 120, 1);
+    gg.fillStyle = 'rgba(140,150,170,0.12)';
+    for (let y = 0; y < H + 120; y += 60) for (let x = 0; x < W + 120; x += 60) gg.fillRect(x - 1, y - 1, 3, 3);
 
     this.dot = createCanvas(64, 64);
     const d = this.dot.getContext('2d');
