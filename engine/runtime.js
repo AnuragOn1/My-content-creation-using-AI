@@ -213,17 +213,17 @@ export async function boot(build) {
     render: (t, frame = 0) => reelImpl.render(t, { frame, fps, total: Math.ceil(duration * fps) }),
   };
 
-  if (!window.__RENDER_PARAMS__) startPreview(reel, duration);
+  if (!window.__RENDER_PARAMS__) startPreview(reel, duration, timing.voAudio);
   else window.REEL.render(0);
 }
 
-function startPreview(reel, duration) {
+function startPreview(reel, duration, voAudio) {
   const ui = document.getElementById("preview-ui") || el("div", "", document.body);
   ui.id = "preview-ui";
   ui.style.display = "flex";
   ui.innerHTML = `<button>play</button><input type="range" min="0" max="${duration}" step="0.01" value="0"><span>0.00s</span>`;
   const [button, range, label] = ui.children;
-  const audio = new Audio(reel.vo?.audio || reel.previewAudio || "audio/vo.mp3");
+  const audio = new Audio(voAudio || reel.vo?.audio || reel.previewAudio || "audio/vo.mp3");
   let playing = false;
   let clockStart = 0;
   let clockAt = 0;

@@ -11,8 +11,10 @@ boot(({ stage, timing: T, params }) => {
   const sfx = (t, type, gain = 1) => events.push({ t, type, gain });
 
   const N = T.segments.length;
-  const sceneStart = (i) => (i === 0 ? -1 : T.seg(i).start - 0.25);
-  const sceneEnd = (i) => (i === N - 1 ? T.duration + 1 : T.seg(i + 1).start - 0.12);
+  // Slides change in the short breath between lines: the old one lifts out as the
+  // last word ends, the new one is in place for the first word of the next line.
+  const sceneStart = (i) => (i === 0 ? -1 : T.seg(i).start - 0.18);
+  const sceneEnd = (i) => (i === N - 1 ? T.duration + 1 : T.seg(i + 1).start - 0.04);
   const at = (seg, word, nth = 0) => T.at(seg, word, nth);
 
   // Child entrance: fade + rise + de-blur. Returns progress 0..1.
@@ -24,7 +26,7 @@ boot(({ stage, timing: T, params }) => {
   // Scene container: visible inside its window, lifts out at the end.
   const sceneEnv = (node, t, i) => {
     if (!shown(node, t >= sceneStart(i) && t <= sceneEnd(i))) return false;
-    const out = ease.inCubic(prog(t, sceneEnd(i) - 0.28, 0.28));
+    const out = ease.inCubic(prog(t, sceneEnd(i) - 0.22, 0.22));
     place(node, { y: -out * 70, o: 1 - out, blur: out * 10 });
     return true;
   };

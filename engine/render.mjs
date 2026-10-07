@@ -153,7 +153,7 @@ async function main() {
     run("python3", [path.join(ROOT, "engine/music.py"), path.join(opts.reelDir, "reel.json"), musicPath]);
     stems.push({ file: musicPath, gain: reel.music.gain ?? 1.0 });
   }
-  const vo = reel.vo ? path.join(opts.reelDir, reel.vo.audio || "audio/vo.mp3") : null;
+  const vo = reel.vo ? path.join(opts.reelDir, timing.voAudio || reel.vo.audio || "audio/vo.mp3") : null;
   const voMissing = Boolean(vo) && !fs.existsSync(vo);
   if (vo && !voMissing) {
     const cut = timing.voEnd < timing.voDuration - 0.05 ? timing.voEnd : null;

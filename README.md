@@ -53,6 +53,8 @@ All audio is generated or ElevenLabs-made, so there is nothing to license.
 3. Optional but best: transcribe it with ElevenLabs Scribe and save the word timings as `audio/vo.words.json`. Without that file, `align.py` splits the lines at the longest pauses.
 4. Render.
 
+To shorten a reel without regenerating the voice, add a `vo.edit` block: phrases to `drop`, a `maxPause`, a `segmentGap` and a `speed`. `align.py` cuts the audio at the word timestamps and re-times every slide to match (see `reels/five-things-claude/reel.json`).
+
 ## Decisions so far
 
 - **Standalone reels.** These reels are not part of the "Day 1, Day 2…" series: no day tag, no next-day teaser.

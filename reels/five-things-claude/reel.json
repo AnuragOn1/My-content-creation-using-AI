@@ -2,8 +2,8 @@
   "id": "five-things-claude",
   "title": "5 things I use Claude for every day while preparing for a 30 LPA job",
   "fps": 30,
-  "tail": 1.6,
-  "cover": 7.4,
+  "tail": 1.2,
+  "cover": 6.0,
   "vo": {
     "audio": "audio/vo.mp3",
     "words": "audio/vo.words.json",
@@ -19,7 +19,34 @@
       "Comment the word prompts, and I'll send you all five.",
       "Day five: same prompt, two models."
     ],
-    "endAfterSegment": 7
+    "endAfterSegment": 7,
+    "edit": {
+      "drop": [
+        {
+          "seg": 1,
+          "text": "Number one."
+        },
+        {
+          "seg": 2,
+          "text": "Number two."
+        },
+        {
+          "seg": 3,
+          "text": "Number three."
+        },
+        {
+          "seg": 4,
+          "text": "Number four."
+        },
+        {
+          "seg": 5,
+          "text": "Number five."
+        }
+      ],
+      "maxPause": 0.25,
+      "segmentGap": 0.3,
+      "speed": 1.2
+    }
   },
   "params": {
     "label": "5 WAYS I USE CLAUDE",

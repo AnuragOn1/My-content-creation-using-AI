@@ -1,8 +1,8 @@
 # 5 things I use Claude for: posting kit
 
-**File:** `exports/five-things-claude.mp4` (about 55 s, 1080x1920, 30 fps, -14 LUFS)
-**Cover:** `exports/five-things-claude-cover.png` (the 0:07.4 frame: "5 things I use Claude for every day, while preparing for a 30 LPA job")
-**Voice:** ElevenLabs "Utkarsh – Viral UGC Content Creator", eleven_multilingual_v2
+**File:** `exports/five-things-claude.mp4` (38 s, 1080x1920, 30 fps, -14 LUFS)
+**Cover:** `exports/five-things-claude-cover.png` (the 0:06 frame: "5 things I use Claude for every day, while preparing for a 30 LPA job")
+**Voice:** ElevenLabs "Utkarsh – Viral UGC Content Creator", eleven_multilingual_v2, tightened in `reel.json` → `vo.edit` (spoken "Number one/two/…" cut, pauses shortened, 1.2× speed)
 
 ## Caption
 

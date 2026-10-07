@@ -1,49 +1,50 @@
 {
  "source": "scribe",
  "provisional": false,
- "voDuration": 57.156,
- "voEnd": 53.18,
- "duration": 54.78,
+ "voAudio": "audio/vo.cut.wav",
+ "voDuration": 36.609,
+ "voEnd": 36.609,
+ "duration": 37.809,
  "segments": [
   {
    "text": "Stop using Claude like Google. Here are five things I use it for every day, while preparing for a thirty L P A job.",
    "start": 0.0,
-   "end": 7.488
+   "end": 6.24
   },
   {
    "text": "Number one. It plans my day. My sixteen-week plan becomes today's to-do list, right inside Notion.",
-   "start": 8.266,
-   "end": 15.534
+   "start": 6.49,
+   "end": 11.516
   },
   {
    "text": "Number two. Hints, not answers. Stuck on a DSA problem? I ask for one hint, then I try again.",
-   "start": 16.347,
-   "end": 24.276
+   "start": 11.766,
+   "end": 17.449
   },
   {
    "text": "Number three. It explains every concept using my own project, the chat app I'm building.",
-   "start": 25.019,
-   "end": 31.033
+   "start": 17.699,
+   "end": 21.85
   },
   {
    "text": "Number four. It reviews my code like a senior developer, before any interviewer sees it.",
-   "start": 31.927,
-   "end": 37.477
+   "start": 22.1,
+   "end": 25.912
   },
   {
    "text": "Number five. It checks on me at 2 AM, and tells me exactly what I haven't finished.",
-   "start": 38.313,
-   "end": 44.245
+   "start": 26.162,
+   "end": 30.032
   },
   {
    "text": "It doesn't do the work for me. It makes sure I do it.",
-   "start": 44.988,
-   "end": 48.309
+   "start": 30.282,
+   "end": 33.026
   },
   {
    "text": "Comment the word prompts, and I'll send you all five.",
-   "start": 49.064,
-   "end": 52.93
+   "start": 33.276,
+   "end": 36.473
   }
  ],
  "words": [
@@ -51,775 +52,715 @@
    "text": "Stop",
    "seg": 0,
    "start": 0.0,
-   "end": 0.325
+   "end": 0.271
   },
   {
    "text": "using",
    "seg": 0,
-   "start": 0.395,
-   "end": 0.615
+   "start": 0.329,
+   "end": 0.513
   },
   {
    "text": "Claude",
    "seg": 0,
-   "start": 0.673,
-   "end": 0.964
+   "start": 0.561,
+   "end": 0.803
   },
   {
    "text": "like",
    "seg": 0,
-   "start": 0.998,
-   "end": 1.173
+   "start": 0.832,
+   "end": 0.978
   },
   {
    "text": "Google.",
    "seg": 0,
-   "start": 1.196,
-   "end": 1.672
+   "start": 0.997,
+   "end": 1.393
   },
   {
    "text": "Here",
    "seg": 0,
-   "start": 1.846,
-   "end": 2.055
+   "start": 1.538,
+   "end": 1.713
   },
   {
    "text": "are",
    "seg": 0,
-   "start": 2.101,
-   "end": 2.218
+   "start": 1.751,
+   "end": 1.848
   },
   {
    "text": "five",
    "seg": 0,
-   "start": 2.264,
-   "end": 2.508
+   "start": 1.887,
+   "end": 2.09
   },
   {
    "text": "things",
    "seg": 0,
-   "start": 2.543,
-   "end": 2.786
+   "start": 2.119,
+   "end": 2.322
   },
   {
    "text": "I",
    "seg": 0,
-   "start": 2.937,
-   "end": 3.053
+   "start": 2.447,
+   "end": 2.544
   },
   {
    "text": "use",
    "seg": 0,
-   "start": 3.228,
-   "end": 3.483
+   "start": 2.69,
+   "end": 2.903
   },
   {
    "text": "it",
    "seg": 0,
-   "start": 3.518,
-   "end": 3.587
+   "start": 2.932,
+   "end": 2.989
   },
   {
    "text": "for",
    "seg": 0,
-   "start": 3.634,
-   "end": 3.773
+   "start": 3.028,
+   "end": 3.144
   },
   {
    "text": "every",
    "seg": 0,
-   "start": 3.855,
-   "end": 4.087
+   "start": 3.212,
+   "end": 3.406
   },
   {
    "text": "day,",
    "seg": 0,
-   "start": 4.133,
-   "end": 4.493
+   "start": 3.444,
+   "end": 3.744
   },
   {
    "text": "while",
    "seg": 0,
-   "start": 4.737,
-   "end": 4.992
+   "start": 3.948,
+   "end": 4.16
   },
   {
    "text": "preparing",
    "seg": 0,
-   "start": 5.039,
-   "end": 5.457
+   "start": 4.199,
+   "end": 4.548
   },
   {
    "text": "for",
    "seg": 0,
-   "start": 5.503,
-   "end": 5.619
+   "start": 4.586,
+   "end": 4.683
   },
   {
    "text": "a",
    "seg": 0,
-   "start": 5.677,
-   "end": 5.7
+   "start": 4.731,
+   "end": 4.75
   },
   {
    "text": "thirty",
    "seg": 0,
-   "start": 5.793,
-   "end": 6.223
+   "start": 4.828,
+   "end": 5.186
   },
   {
    "text": "L",
    "seg": 0,
-   "start": 6.374,
-   "end": 6.548
+   "start": 5.312,
+   "end": 5.457
   },
   {
    "text": "P",
    "seg": 0,
-   "start": 6.618,
-   "end": 6.676
+   "start": 5.515,
+   "end": 5.563
   },
   {
    "text": "A",
    "seg": 0,
-   "start": 6.85,
-   "end": 6.943
+   "start": 5.708,
+   "end": 5.786
   },
   {
    "text": "job.",
    "seg": 0,
-   "start": 7.036,
-   "end": 7.488
-  },
-  {
-   "text": "Number",
-   "seg": 1,
-   "start": 8.266,
-   "end": 8.58
-  },
-  {
-   "text": "one.",
-   "seg": 1,
-   "start": 8.649,
-   "end": 9.067
+   "start": 5.863,
+   "end": 6.24
   },
   {
    "text": "It",
    "seg": 1,
-   "start": 9.242,
-   "end": 9.416
+   "start": 6.49,
+   "end": 6.635
   },
   {
    "text": "plans",
    "seg": 1,
-   "start": 9.474,
-   "end": 9.799
+   "start": 6.683,
+   "end": 6.954
   },
   {
    "text": "my",
    "seg": 1,
-   "start": 9.857,
-   "end": 9.985
+   "start": 7.002,
+   "end": 7.109
   },
   {
    "text": "day.",
    "seg": 1,
-   "start": 10.054,
-   "end": 10.437
+   "start": 7.167,
+   "end": 7.486
   },
   {
    "text": "My",
    "seg": 1,
-   "start": 10.948,
-   "end": 11.122
+   "start": 7.694,
+   "end": 7.839
   },
   {
    "text": "sixteen-week",
    "seg": 1,
-   "start": 11.204,
-   "end": 11.877
+   "start": 7.907,
+   "end": 8.468
   },
   {
    "text": "plan",
    "seg": 1,
-   "start": 11.935,
-   "end": 12.214
+   "start": 8.517,
+   "end": 8.749
   },
   {
    "text": "becomes",
    "seg": 1,
-   "start": 12.283,
-   "end": 12.632
+   "start": 8.807,
+   "end": 9.097
   },
   {
    "text": "today's",
    "seg": 1,
-   "start": 12.701,
-   "end": 13.142
+   "start": 9.155,
+   "end": 9.522
   },
   {
    "text": "to-do",
    "seg": 1,
-   "start": 13.224,
-   "end": 13.514
+   "start": 9.591,
+   "end": 9.832
   },
   {
    "text": "list,",
    "seg": 1,
-   "start": 13.572,
-   "end": 14.025
+   "start": 9.881,
+   "end": 10.258
   },
   {
    "text": "right",
    "seg": 1,
-   "start": 14.199,
-   "end": 14.466
+   "start": 10.403,
+   "end": 10.626
   },
   {
    "text": "inside",
    "seg": 1,
-   "start": 14.512,
-   "end": 14.907
+   "start": 10.664,
+   "end": 10.993
   },
   {
    "text": "Notion.",
    "seg": 1,
-   "start": 14.977,
-   "end": 15.534
-  },
-  {
-   "text": "Number",
-   "seg": 2,
-   "start": 16.347,
-   "end": 16.648
-  },
-  {
-   "text": "two.",
-   "seg": 2,
-   "start": 16.695,
-   "end": 17.113
+   "start": 11.052,
+   "end": 11.516
   },
   {
    "text": "Hints,",
    "seg": 2,
-   "start": 17.322,
-   "end": 17.949
+   "start": 11.766,
+   "end": 12.288
   },
   {
    "text": "not",
    "seg": 2,
-   "start": 18.065,
-   "end": 18.332
+   "start": 12.385,
+   "end": 12.607
   },
   {
    "text": "answers.",
    "seg": 2,
-   "start": 18.39,
-   "end": 18.993
+   "start": 12.656,
+   "end": 13.158
   },
   {
    "text": "Stuck",
    "seg": 2,
-   "start": 19.202,
-   "end": 19.481
+   "start": 13.332,
+   "end": 13.565
   },
   {
    "text": "on",
    "seg": 2,
-   "start": 19.551,
-   "end": 19.632
+   "start": 13.623,
+   "end": 13.691
   },
   {
    "text": "a",
    "seg": 2,
-   "start": 19.678,
-   "end": 19.702
+   "start": 13.729,
+   "end": 13.749
   },
   {
    "text": "DSA",
    "seg": 2,
-   "start": 19.783,
-   "end": 20.224
+   "start": 13.817,
+   "end": 14.184
   },
   {
    "text": "problem?",
    "seg": 2,
-   "start": 20.271,
-   "end": 20.839
+   "start": 14.223,
+   "end": 14.697
   },
   {
    "text": "I",
    "seg": 2,
-   "start": 21.223,
-   "end": 21.35
+   "start": 14.905,
+   "end": 15.011
   },
   {
    "text": "ask",
    "seg": 2,
-   "start": 21.501,
-   "end": 21.768
+   "start": 15.137,
+   "end": 15.359
   },
   {
    "text": "for",
    "seg": 2,
-   "start": 21.838,
-   "end": 22.0
+   "start": 15.417,
+   "end": 15.552
   },
   {
    "text": "one",
    "seg": 2,
-   "start": 22.093,
-   "end": 22.314
+   "start": 15.63,
+   "end": 15.814
   },
   {
    "text": "hint,",
    "seg": 2,
-   "start": 22.349,
-   "end": 22.674
+   "start": 15.843,
+   "end": 16.114
   },
   {
    "text": "then",
    "seg": 2,
-   "start": 22.825,
-   "end": 23.127
+   "start": 16.24,
+   "end": 16.492
   },
   {
    "text": "I",
    "seg": 2,
-   "start": 23.37,
-   "end": 23.463
+   "start": 16.694,
+   "end": 16.772
   },
   {
    "text": "try",
    "seg": 2,
-   "start": 23.579,
-   "end": 23.788
+   "start": 16.868,
+   "end": 17.042
   },
   {
    "text": "again.",
    "seg": 2,
-   "start": 23.846,
-   "end": 24.276
-  },
-  {
-   "text": "Number",
-   "seg": 3,
-   "start": 25.019,
-   "end": 25.309
-  },
-  {
-   "text": "three.",
-   "seg": 3,
-   "start": 25.367,
-   "end": 25.808
+   "start": 17.091,
+   "end": 17.449
   },
   {
    "text": "It",
    "seg": 3,
-   "start": 26.052,
-   "end": 26.203
+   "start": 17.699,
+   "end": 17.825
   },
   {
    "text": "explains",
    "seg": 3,
-   "start": 26.261,
-   "end": 26.761
+   "start": 17.873,
+   "end": 18.29
   },
   {
    "text": "every",
    "seg": 3,
-   "start": 26.888,
-   "end": 27.225
+   "start": 18.396,
+   "end": 18.677
   },
   {
    "text": "concept",
    "seg": 3,
-   "start": 27.295,
-   "end": 27.771
+   "start": 18.735,
+   "end": 19.132
   },
   {
    "text": "using",
    "seg": 3,
-   "start": 27.852,
-   "end": 28.119
+   "start": 19.199,
+   "end": 19.422
   },
   {
    "text": "my",
    "seg": 3,
-   "start": 28.177,
-   "end": 28.316
+   "start": 19.47,
+   "end": 19.586
   },
   {
    "text": "own",
    "seg": 3,
-   "start": 28.409,
-   "end": 28.63
+   "start": 19.663,
+   "end": 19.847
   },
   {
    "text": "project,",
    "seg": 3,
-   "start": 28.699,
-   "end": 29.326
+   "start": 19.905,
+   "end": 20.427
   },
   {
    "text": "the",
    "seg": 3,
-   "start": 29.57,
-   "end": 29.686
+   "start": 20.631,
+   "end": 20.727
   },
   {
    "text": "chat",
    "seg": 3,
-   "start": 29.756,
-   "end": 30.035
+   "start": 20.786,
+   "end": 21.018
   },
   {
    "text": "app",
    "seg": 3,
-   "start": 30.104,
-   "end": 30.243
+   "start": 21.076,
+   "end": 21.192
   },
   {
    "text": "I'm",
    "seg": 3,
-   "start": 30.325,
-   "end": 30.476
+   "start": 21.26,
+   "end": 21.386
   },
   {
    "text": "building.",
    "seg": 3,
-   "start": 30.522,
-   "end": 31.033
-  },
-  {
-   "text": "Number",
-   "seg": 4,
-   "start": 31.927,
-   "end": 32.24
-  },
-  {
-   "text": "four.",
-   "seg": 4,
-   "start": 32.31,
-   "end": 32.786
+   "start": 21.424,
+   "end": 21.85
   },
   {
    "text": "It",
    "seg": 4,
-   "start": 32.902,
-   "end": 33.041
+   "start": 22.1,
+   "end": 22.216
   },
   {
    "text": "reviews",
    "seg": 4,
-   "start": 33.1,
-   "end": 33.459
+   "start": 22.265,
+   "end": 22.564
   },
   {
    "text": "my",
    "seg": 4,
-   "start": 33.529,
-   "end": 33.634
+   "start": 22.622,
+   "end": 22.71
   },
   {
    "text": "code",
    "seg": 4,
-   "start": 33.715,
-   "end": 33.982
+   "start": 22.777,
+   "end": 23.0
   },
   {
    "text": "like",
    "seg": 4,
-   "start": 34.017,
-   "end": 34.168
+   "start": 23.029,
+   "end": 23.155
   },
   {
    "text": "a",
    "seg": 4,
-   "start": 34.202,
-   "end": 34.226
+   "start": 23.183,
+   "end": 23.203
   },
   {
    "text": "senior",
    "seg": 4,
-   "start": 34.307,
-   "end": 34.667
+   "start": 23.271,
+   "end": 23.571
   },
   {
    "text": "developer,",
    "seg": 4,
-   "start": 34.725,
-   "end": 35.422
+   "start": 23.619,
+   "end": 24.2
   },
   {
    "text": "before",
    "seg": 4,
-   "start": 35.55,
-   "end": 35.968
+   "start": 24.307,
+   "end": 24.655
   },
   {
    "text": "any",
    "seg": 4,
-   "start": 36.037,
-   "end": 36.293
+   "start": 24.712,
+   "end": 24.926
   },
   {
    "text": "interviewer",
    "seg": 4,
-   "start": 36.351,
-   "end": 36.873
+   "start": 24.974,
+   "end": 25.409
   },
   {
    "text": "sees",
    "seg": 4,
-   "start": 36.954,
-   "end": 37.21
+   "start": 25.477,
+   "end": 25.69
   },
   {
    "text": "it.",
    "seg": 4,
-   "start": 37.268,
-   "end": 37.477
-  },
-  {
-   "text": "Number",
-   "seg": 5,
-   "start": 38.313,
-   "end": 38.615
-  },
-  {
-   "text": "five.",
-   "seg": 5,
-   "start": 38.696,
-   "end": 39.16
+   "start": 25.738,
+   "end": 25.912
   },
   {
    "text": "It",
    "seg": 5,
-   "start": 39.601,
-   "end": 39.776
+   "start": 26.162,
+   "end": 26.308
   },
   {
    "text": "checks",
    "seg": 5,
-   "start": 39.822,
-   "end": 40.112
+   "start": 26.347,
+   "end": 26.588
   },
   {
    "text": "on",
    "seg": 5,
-   "start": 40.159,
-   "end": 40.252
+   "start": 26.627,
+   "end": 26.705
   },
   {
    "text": "me",
    "seg": 5,
-   "start": 40.31,
-   "end": 40.437
+   "start": 26.753,
+   "end": 26.859
   },
   {
    "text": "at",
    "seg": 5,
-   "start": 40.495,
-   "end": 40.635
+   "start": 26.907,
+   "end": 27.024
   },
   {
    "text": "2",
    "seg": 5,
-   "start": 40.681,
-   "end": 40.879
+   "start": 27.062,
+   "end": 27.227
   },
   {
    "text": "AM,",
    "seg": 5,
-   "start": 40.995,
-   "end": 41.564
+   "start": 27.324,
+   "end": 27.798
   },
   {
    "text": "and",
    "seg": 5,
-   "start": 41.714,
-   "end": 41.865
+   "start": 27.923,
+   "end": 28.049
   },
   {
    "text": "tells",
    "seg": 5,
-   "start": 41.912,
-   "end": 42.132
+   "start": 28.088,
+   "end": 28.272
   },
   {
    "text": "me",
    "seg": 5,
-   "start": 42.19,
-   "end": 42.295
+   "start": 28.32,
+   "end": 28.407
   },
   {
    "text": "exactly",
    "seg": 5,
-   "start": 42.353,
-   "end": 42.992
+   "start": 28.456,
+   "end": 28.988
   },
   {
    "text": "what",
    "seg": 5,
-   "start": 43.038,
-   "end": 43.224
+   "start": 29.027,
+   "end": 29.182
   },
   {
    "text": "I",
    "seg": 5,
-   "start": 43.293,
-   "end": 43.317
+   "start": 29.239,
+   "end": 29.259
   },
   {
    "text": "haven't",
    "seg": 5,
-   "start": 43.398,
-   "end": 43.665
+   "start": 29.327,
+   "end": 29.549
   },
   {
    "text": "finished.",
    "seg": 5,
-   "start": 43.7,
-   "end": 44.245
+   "start": 29.578,
+   "end": 30.032
   },
   {
    "text": "It",
    "seg": 6,
-   "start": 44.988,
-   "end": 45.139
+   "start": 30.282,
+   "end": 30.408
   },
   {
    "text": "doesn't",
    "seg": 6,
-   "start": 45.186,
-   "end": 45.476
+   "start": 30.447,
+   "end": 30.689
   },
   {
    "text": "do",
    "seg": 6,
-   "start": 45.511,
-   "end": 45.604
+   "start": 30.718,
+   "end": 30.796
   },
   {
    "text": "the",
    "seg": 6,
-   "start": 45.673,
-   "end": 45.743
+   "start": 30.853,
+   "end": 30.912
   },
   {
    "text": "work",
    "seg": 6,
-   "start": 45.801,
-   "end": 46.01
+   "start": 30.96,
+   "end": 31.134
   },
   {
    "text": "for",
    "seg": 6,
-   "start": 46.057,
-   "end": 46.161
+   "start": 31.173,
+   "end": 31.26
   },
   {
    "text": "me.",
    "seg": 6,
-   "start": 46.219,
-   "end": 46.509
+   "start": 31.308,
+   "end": 31.55
   },
   {
    "text": "It",
    "seg": 6,
-   "start": 46.788,
-   "end": 46.939
+   "start": 31.758,
+   "end": 31.884
   },
   {
    "text": "makes",
    "seg": 6,
-   "start": 47.009,
-   "end": 47.241
+   "start": 31.942,
+   "end": 32.136
   },
   {
    "text": "sure",
    "seg": 6,
-   "start": 47.276,
-   "end": 47.531
+   "start": 32.165,
+   "end": 32.377
   },
   {
    "text": "I",
    "seg": 6,
-   "start": 47.601,
-   "end": 47.67
+   "start": 32.436,
+   "end": 32.493
   },
   {
    "text": "do",
    "seg": 6,
-   "start": 47.845,
-   "end": 47.984
+   "start": 32.639,
+   "end": 32.755
   },
   {
    "text": "it.",
    "seg": 6,
-   "start": 48.065,
-   "end": 48.309
+   "start": 32.822,
+   "end": 33.026
   },
   {
    "text": "Comment",
    "seg": 7,
-   "start": 49.064,
-   "end": 49.447
+   "start": 33.276,
+   "end": 33.595
   },
   {
    "text": "the",
    "seg": 7,
-   "start": 49.482,
-   "end": 49.551
+   "start": 33.624,
+   "end": 33.682
   },
   {
    "text": "word",
    "seg": 7,
-   "start": 49.598,
-   "end": 49.818
+   "start": 33.721,
+   "end": 33.904
   },
   {
    "text": "prompts,",
    "seg": 7,
-   "start": 49.876,
-   "end": 50.48
+   "start": 33.952,
+   "end": 34.456
   },
   {
    "text": "and",
    "seg": 7,
-   "start": 50.654,
-   "end": 50.91
+   "start": 34.601,
+   "end": 34.814
   },
   {
    "text": "I'll",
    "seg": 7,
-   "start": 51.002,
-   "end": 51.2
+   "start": 34.891,
+   "end": 35.056
   },
   {
    "text": "send",
    "seg": 7,
-   "start": 51.269,
-   "end": 51.49
+   "start": 35.113,
+   "end": 35.297
   },
   {
    "text": "you",
    "seg": 7,
-   "start": 51.56,
-   "end": 51.699
+   "start": 35.356,
+   "end": 35.472
   },
   {
    "text": "all",
    "seg": 7,
-   "start": 51.978,
-   "end": 52.314
+   "start": 35.68,
+   "end": 35.96
   },
   {
    "text": "five.",
    "seg": 7,
-   "start": 52.407,
-   "end": 52.93
+   "start": 36.037,
+   "end": 36.473
   }
  ]
 }
