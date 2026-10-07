@@ -1,0 +1,126 @@
+/* Brand tokens for the page: electric blue on black.
+   Every reel imports this so colours, type and safe zones stay identical across the series. */
+
+@font-face { font-family: "Inter"; font-weight: 400; src: url("fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 500; src: url("fonts/inter-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url("fonts/inter-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 700; src: url("fonts/inter-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 800; src: url("fonts/inter-latin-800-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 900; src: url("fonts/inter-latin-900-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; src: url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: 700; src: url("fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2"); }
+
+:root {
+  --blue: #3884FF;
+  --blue-soft: rgba(56, 132, 255, 0.22);
+  --blue-glow: rgba(56, 132, 255, 0.55);
+  --black: #000000;
+  --ink: #05070B;          /* cards and panels sit one step above pure black */
+  --line: #1A2333;
+  --white: #F4F7FC;
+  --grey: #8C96A8;
+  --dim: #4A5466;
+
+  --sans: "Inter", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Instagram Reels safe zone on a 1080x1920 frame: the top bar, caption block
+     and the like/comment rail cover everything outside these lines. */
+  --safe-top: 250px;
+  --safe-bottom: 1500px;
+  --safe-left: 80px;
+  --safe-right: 940px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 1080px;
+  height: 1920px;
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--sans);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#stage {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.abs { position: absolute; }
+.mono { font-family: var(--mono); }
+.blue { color: var(--blue); }
+.grey { color: var(--grey); }
+
+/* Series tag shown on every reel ("DAY 03"). */
+.day-tag {
+  position: absolute;
+  left: var(--safe-left);
+  top: 262px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font: 600 30px/1 var(--mono);
+  letter-spacing: 0.18em;
+  color: var(--white);
+}
+.day-tag .dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 18px var(--blue-glow);
+}
+.day-tag .handle { color: var(--grey); font-weight: 400; letter-spacing: 0.08em; }
+
+/* Thin "loading" bar that doubles as the reel's progress bar. */
+.progress {
+  position: absolute;
+  left: var(--safe-left);
+  top: 316px;
+  width: 860px;
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--blue);
+  box-shadow: 0 0 12px var(--blue-glow);
+}
+
+.vignette {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(0,0,0,0.75) 100%);
+}
+
+/* Burned-in captions: current phrase, active word in blue. */
+.captions {
+  position: absolute;
+  left: 90px; right: 150px;
+  top: 1330px;
+  text-align: center;
+  font: 800 54px/1.15 var(--sans);
+  letter-spacing: -0.01em;
+  color: var(--white);
+  text-shadow: 0 4px 24px rgba(0,0,0,0.9);
+}
+.captions .on { color: var(--blue); }
+
+/* Preview-mode scrub bar (never visible in a render). */
+#preview-ui {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  display: none; gap: 12px; align-items: center;
+  padding: 12px 16px; background: rgba(5,7,11,0.92);
+  font: 500 14px var(--mono); color: var(--grey); z-index: 10;
+}
+#preview-ui input[type=range] { flex: 1; }
+#preview-ui button { font: inherit; padding: 6px 12px; background: var(--blue); color: #fff; border: 0; border-radius: 6px; }

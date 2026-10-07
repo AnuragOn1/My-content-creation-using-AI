@@ -1,0 +1,29 @@
+{
+  "id": "five-things-claude",
+  "title": "5 things I use Claude for every day while preparing for a 30 LPA job",
+  "fps": 30,
+  "tail": 1.6,
+  "cover": 7.4,
+  "vo": {
+    "audio": "audio/vo.mp3",
+    "words": "audio/vo.words.json",
+    "voice": "Utkarsh - Viral UGC Content Creator (ElevenLabs voice 0S6xG2aDSxyTDcYrV1oo, eleven_multilingual_v2)",
+    "segments": [
+      "Stop using Claude like Google. Here are five things I use it for every day, while preparing for a thirty L P A job.",
+      "Number one. It plans my day. My sixteen-week plan becomes today's to-do list, right inside Notion.",
+      "Number two. Hints, not answers. Stuck on a DSA problem? I ask for one hint, then I try again.",
+      "Number three. It explains every concept using my own project, the chat app I'm building.",
+      "Number four. It reviews my code like a senior developer, before any interviewer sees it.",
+      "Number five. It checks on me at 2 AM, and tells me exactly what I haven't finished.",
+      "It doesn't do the work for me. It makes sure I do it.",
+      "Comment the word prompts, and I'll send you all five.",
+      "Day five: same prompt, two models."
+    ],
+    "endAfterSegment": 7
+  },
+  "params": {
+    "label": "5 WAYS I USE CLAUDE",
+    "salary": "30 LPA",
+    "keyword": "PROMPTS"
+  }
+}

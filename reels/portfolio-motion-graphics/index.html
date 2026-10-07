@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Portfolio motion graphic</title>
+<link rel="stylesheet" href="../../brand/brand.css">
+<style>
+  /* The portfolio's own identity (anuragon1.github.io): red on black, Anton + a script face.
+     The reel's frame around it (captions, prompt, loader, dot grid) stays brand blue. */
+  @font-face { font-family: "Anton"; src: url("../../brand/fonts/anton-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Mrs Saint Delafield"; src: url("../../brand/fonts/mrs-saint-delafield-latin-400-normal.woff2") format("woff2"); }
+  :root {
+    --red: #e11d2a;
+    --red-deep: #7a0a12;
+    --red-dark: #3a0508;
+    --display: "Anton", Impact, sans-serif;
+    --script: "Mrs Saint Delafield", cursive;
+  }
+  .layer { position: absolute; inset: 0; }
+  .world { position: absolute; inset: 0; transform-origin: 540px 960px; }
+  .atmo { position: absolute; inset: -200px; background: radial-gradient(ellipse 60% 42% at 50% 45%, rgba(165,15,25,0.95), rgba(122,10,18,0.45) 45%, transparent 75%); }
+  .flash { position: absolute; inset: 0; background: #fff; opacity: 0; mix-blend-mode: screen; }
+  .scene { position: absolute; inset: 0; }
+
+  /* Brand captions over the top of the frame */
+  .cap { position: absolute; left: 80px; width: 900px; top: 262px; font: 800 66px/1.06 var(--sans); letter-spacing: -0.03em; color: var(--white); text-shadow: 0 6px 30px rgba(0,0,0,0.8); }
+  .cap .blue { color: var(--blue); }
+  .tag { position: absolute; left: 80px; top: 268px; display: flex; gap: 16px; align-items: center; font: 600 28px/1 var(--mono); letter-spacing: 0.16em; color: var(--white); }
+  .tag i { width: 14px; height: 14px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 18px var(--blue-glow); }
+
+  /* 1. Hero */
+  .bigword { position: absolute; left: 0; width: 1080px; text-align: center; font: 400 430px/0.84 var(--display); letter-spacing: -0.01em; }
+  .bigword span { display: inline-block; background: linear-gradient(180deg, #ff3340 0%, #d4141f 45%, #6d0911 85%, rgba(58,5,8,0.0) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .portrait { position: absolute; left: 70px; top: 470px; width: 980px; }
+  .shade { position: absolute; left: 0; right: 0; top: 1020px; height: 560px; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.88) 55%, #000); }
+  .hello { position: absolute; left: 80px; top: 1010px; font: 400 120px/1 var(--script); color: var(--white); white-space: nowrap; }
+  .name { position: absolute; left: 80px; font: 400 150px/0.9 var(--display); color: var(--white); letter-spacing: 0.005em; }
+  .role { position: absolute; left: 82px; top: 1410px; font: 600 44px/1 var(--sans); color: var(--red); letter-spacing: 0.02em; }
+  .caret { display: inline-block; width: 5px; height: 44px; background: var(--red); margin-left: 8px; vertical-align: -6px; }
+
+  /* 2. Prompt + loading (brand blue) */
+  .card { position: absolute; left: 80px; width: 920px; background: rgba(5,7,11,0.92); border: 2px solid var(--line); border-radius: 30px; padding: 34px 40px; }
+  .card .head { display: flex; justify-content: space-between; font: 600 26px/1 var(--mono); letter-spacing: 0.14em; color: var(--blue); margin-bottom: 26px; }
+  .card .head span:last-child { color: var(--grey); }
+  .prompt-text { font: 500 40px/1.42 var(--mono); color: var(--white); min-height: 284px; font-variant-ligatures: none; }
+  .cursor { display: inline-block; width: 18px; height: 42px; background: var(--blue); vertical-align: -6px; margin-left: 4px; }
+  .enter { position: absolute; right: 40px; bottom: 30px; font: 700 28px/1 var(--mono); color: #fff; background: var(--blue); padding: 14px 22px; border-radius: 12px; }
+  .pct { position: absolute; left: 80px; top: 1060px; font: 900 190px/1 var(--sans); letter-spacing: -0.05em; color: var(--blue); text-shadow: 0 0 50px rgba(56,132,255,0.45); font-variant-numeric: tabular-nums; }
+  .bar { position: absolute; left: 80px; top: 1270px; width: 920px; height: 14px; background: var(--line); border-radius: 8px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--blue); box-shadow: 0 0 20px var(--blue-glow); }
+  .status { position: absolute; left: 80px; top: 1316px; width: 920px; font: 500 30px/1.55 var(--mono); color: var(--grey); white-space: nowrap; }
+  .status .ok { color: var(--blue); }
+
+  /* 3. Portfolio sequence (red) */
+  .slam { position: absolute; left: 60px; width: 960px; text-align: center; font: 400 170px/0.92 var(--display); color: var(--white); }
+  .kicker { position: absolute; left: 0; width: 1080px; text-align: center; font: 600 34px/1 var(--mono); letter-spacing: 0.3em; color: var(--red); }
+  .stat { position: absolute; left: 80px; width: 860px; height: 270px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid rgba(255,255,255,0.14); }
+  .stat .num { font: 400 230px/1 var(--display); color: var(--red); font-variant-numeric: tabular-nums; }
+  .stat .num sup { font-size: 90px; vertical-align: 100px; margin-left: 6px; }
+  .stat .lbl { font: 600 34px/1.35 var(--mono); letter-spacing: 0.14em; color: var(--white); text-align: right; }
+  .proj { position: absolute; left: 80px; width: 920px; }
+  .proj .thumb { width: 920px; height: 250px; border-radius: 18px; overflow: hidden; border: 2px solid rgba(255,255,255,0.12); background: #0b0b0b; }
+  .proj .thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .proj .soon { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 18px, transparent 18px 36px), linear-gradient(160deg, #a50f19, var(--red-deep) 55%, var(--red-dark)); }
+  .proj .soon b { font: 400 92px/0.9 var(--display); color: #fff; }
+  .proj .soon span { font: 600 22px/1 var(--mono); letter-spacing: 0.2em; color: rgba(255,255,255,0.7); margin-top: 14px; }
+  .proj .meta { display: flex; align-items: center; gap: 24px; margin-top: 14px; }
+  .proj .meta .n { font: 400 64px/1 var(--display); color: var(--red); }
+  .proj .meta b { font: 700 36px/1.1 var(--sans); letter-spacing: 0.04em; display: block; }
+  .proj .meta span { font: 500 24px/1 var(--mono); letter-spacing: 0.14em; color: var(--grey); }
+  .h-sec { position: absolute; left: 80px; font: 400 130px/0.9 var(--display); color: var(--white); }
+  .tl-line { position: absolute; left: 112px; top: 640px; width: 6px; height: 760px; background: linear-gradient(var(--red), rgba(225,29,42,0.15)); transform-origin: top center; border-radius: 3px; }
+  .job { position: absolute; left: 80px; width: 920px; padding-left: 90px; }
+  .job .dot { position: absolute; left: 14px; top: 14px; width: 42px; height: 42px; border-radius: 50%; border: 4px solid var(--red); background: #000; }
+  .job .dot::after { content: ""; position: absolute; inset: 8px; border-radius: 50%; background: var(--red); }
+  .job .when { font: 400 76px/1 var(--display); color: var(--red); }
+  .job .what { font: 700 48px/1.15 var(--sans); color: var(--white); margin-top: 12px; }
+  .job .where { font: 500 26px/1 var(--mono); letter-spacing: 0.18em; color: var(--grey); margin-top: 14px; }
+  .chips { position: absolute; left: 80px; top: 560px; width: 920px; display: flex; flex-wrap: wrap; gap: 20px; }
+  .chip { font: 600 38px/1 var(--sans); letter-spacing: 0.06em; text-transform: uppercase; padding: 22px 32px; border-radius: 999px; border: 2px solid rgba(255,255,255,0.28); color: var(--white); background: rgba(10,10,10,0.8); }
+  .chip.hot { border-color: var(--red); background: rgba(225,29,42,0.16); }
+  .step-num { position: absolute; left: 0; width: 1080px; text-align: center; top: 560px; font: 400 200px/1 var(--display); color: var(--red); }
+  .step-word { position: absolute; left: 0; width: 1080px; text-align: center; top: 780px; font: 400 230px/1 var(--display); color: var(--white); }
+  .step-line { position: absolute; left: 0; width: 1080px; text-align: center; top: 1050px; font: 500 44px/1.2 var(--sans); color: var(--grey); }
+  .step-dots { position: absolute; left: 0; width: 1080px; top: 1170px; display: flex; justify-content: center; gap: 22px; }
+  .step-dots i { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--red); }
+  .step-dots i.on { background: var(--red); box-shadow: 0 0 20px rgba(225,29,42,0.7); }
+  .quote { position: absolute; left: 60px; top: 400px; width: 960px; height: 1060px; border-radius: 36px; padding: 70px 70px; background: linear-gradient(160deg, #a50f19 0%, var(--red-deep) 55%, var(--red-dark) 100%); overflow: hidden; }
+  .quote .mark { font: 400 220px/0.7 var(--display); color: rgba(255,255,255,0.9); display: block; height: 130px; }
+  .quote .text { font: 500 76px/1.16 var(--sans); letter-spacing: -0.02em; color: #fff; margin-top: 30px; }
+  .quote .text span { display: inline-block; margin-right: 0.24em; }
+  .quote .sig { font: 400 190px/1 var(--script); color: #fff; margin-top: 40px; white-space: nowrap; display: inline-block; }
+  .quote .cta { font: 600 30px/1.5 var(--mono); letter-spacing: 0.16em; color: rgba(255,255,255,0.85); margin-top: 10px; }
+
+  /* 4. Live site */
+  .browser { position: absolute; left: -120px; top: 540px; width: 1320px; border-radius: 22px; overflow: hidden; border: 2px solid rgba(255,255,255,0.12); background: #111; }
+  .browser .chrome-bar { height: 50px; background: #161616; display: flex; align-items: center; gap: 12px; padding: 0 20px; }
+  .browser .chrome-bar i { width: 14px; height: 14px; border-radius: 50%; background: #333; }
+  .browser img { display: block; width: 100%; }
+  .phone { position: absolute; left: 290px; top: 440px; width: 500px; height: 1060px; border-radius: 64px; background: #050505; border: 3px solid #2a2a2a; padding: 14px; box-shadow: 0 40px 120px rgba(0,0,0,0.9), 0 0 0 10px #0d0d0d; }
+  .phone .screen { width: 100%; height: 100%; border-radius: 50px; overflow: hidden; position: relative; background: #0a0a0a; }
+  .phone .screen img { position: absolute; left: 0; top: 0; width: 100%; }
+  .phone .notch { position: absolute; left: 50%; top: 26px; width: 130px; height: 36px; margin-left: -65px; background: #000; border-radius: 20px; z-index: 2; }
+  .url { position: absolute; left: 0; width: 1080px; top: 368px; display: flex; justify-content: center; }
+  .url span { font: 600 32px/1 var(--mono); letter-spacing: 0.04em; color: var(--white); padding: 14px 26px; border-radius: 999px; border: 2px solid var(--blue); background: rgba(5,7,11,0.85); }
+
+  /* 5. CTA (brand blue) */
+  .cta-a { position: absolute; left: 80px; top: 470px; font: 900 128px/0.98 var(--sans); letter-spacing: -0.05em; }
+  .cta-a .blue { text-shadow: 0 0 50px rgba(56,132,255,0.5); }
+  .cta-b { position: absolute; left: 80px; top: 780px; font: 800 82px/1 var(--sans); letter-spacing: -0.03em; }
+  .scale { position: absolute; left: 80px; top: 930px; width: 920px; display: flex; justify-content: space-between; }
+  .scale span { width: 80px; height: 96px; display: flex; align-items: center; justify-content: center; border-radius: 18px; border: 2px solid var(--line); font: 700 44px/1 var(--mono); color: var(--grey); }
+  .scale span.on { border-color: var(--blue); color: #fff; background: rgba(56,132,255,0.18); }
+  .scale span.max { background: var(--blue); color: #fff; box-shadow: 0 0 40px var(--blue-glow); }
+  .cta-c { position: absolute; left: 80px; top: 1080px; font: 600 32px/1.5 var(--mono); letter-spacing: 0.12em; color: var(--grey); }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script type="module" src="reel.js"></script>
+</body>
+</html>

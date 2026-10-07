@@ -1,0 +1,54 @@
+{
+  "id": "portfolio-motion-graphics",
+  "title": "I turned my portfolio into a motion graphic (made with AI)",
+  "fps": 30,
+  "duration": 30,
+  "cover": 3.7,
+  "bed": false,
+  "sfxGain": 0.55,
+  "music": {
+    "bpm": 120,
+    "bars": 15,
+    "gain": 1.0,
+    "sections": [
+      { "from": 0, "to": 2, "kind": "drop" },
+      { "from": 2, "to": 4, "kind": "build" },
+      { "from": 4, "to": 13, "kind": "drop" },
+      { "from": 13, "to": 15, "kind": "outro" }
+    ]
+  },
+  "params": {
+    "credit": "CLAUDE",
+    "site": "anuragon1.github.io",
+    "first": "ANURAG",
+    "last": "MERUGU",
+    "roles": ["WEB DEVELOPER", "TECH CLIENT LEAD", "CODE REVIEWER", "AI AUTOMATION|ENTHUSIAST"],
+    "stats": [
+      { "value": 150, "suffix": "+", "label": "TECH CLIENTS|MANAGED" },
+      { "value": 30, "suffix": "+", "label": "CODE DELIVERABLES|REVIEWED / MONTH" },
+      { "value": 90, "suffix": "%", "label": "CLIENT|SATISFACTION" }
+    ],
+    "projects": [
+      { "name": "YOUTUBE CLONE", "stack": "HTML · CSS LAYOUT", "image": "assets/project-youtube-clone.webp" },
+      { "name": "PERSONAL PORTFOLIO", "stack": "HTML · CSS · JAVASCRIPT", "image": "assets/project-portfolio.webp" },
+      { "name": "COMING SOON", "stack": "PYTHON · WEB APP", "image": null }
+    ],
+    "jobs": [
+      { "when": "DEC 2024", "role": "Team Lead" },
+      { "when": "SEP 2025", "role": "Customer Success Manager · Tech Clients" },
+      { "when": "FEB 2026", "role": "Sales & Operations Executive" }
+    ],
+    "company": "SCOUTBETTER",
+    "skills": ["Python", "JavaScript", "React", "Django", "SQL", "HTML5", "CSS3", "Git & GitHub", "VS Code", "AI-Assisted Coding", "Responsive Design", "Flexbox & Grid", "Chrome DevTools", "Salesforce CRM", "QA & Code Review", "KPI Tracking"],
+    "process": [
+      { "word": "DISCOVER", "line": "Requirements into clear specs." },
+      { "word": "IDEATE", "line": "Planning and wireframing." },
+      { "word": "DESIGN", "line": "Visuals built around the user." },
+      { "word": "DEVELOP", "line": "Fast, responsive, accessible." },
+      { "word": "DELIVER", "line": "QA, launch on SLA, follow-up." }
+    ],
+    "quote": "Good design is not just how it looks, but how it works.",
+    "signature": "Anurag",
+    "prompt": "Turn my portfolio into a 9:16 motion graphic. Keep my red. Add kinetic text, a dot grid and a loading sequence. Cut everything on the beat."
+  }
+}

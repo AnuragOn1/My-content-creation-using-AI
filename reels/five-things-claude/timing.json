@@ -1,0 +1,825 @@
+{
+ "source": "scribe",
+ "provisional": false,
+ "voDuration": 57.156,
+ "voEnd": 53.18,
+ "duration": 54.78,
+ "segments": [
+  {
+   "text": "Stop using Claude like Google. Here are five things I use it for every day, while preparing for a thirty L P A job.",
+   "start": 0.0,
+   "end": 7.488
+  },
+  {
+   "text": "Number one. It plans my day. My sixteen-week plan becomes today's to-do list, right inside Notion.",
+   "start": 8.266,
+   "end": 15.534
+  },
+  {
+   "text": "Number two. Hints, not answers. Stuck on a DSA problem? I ask for one hint, then I try again.",
+   "start": 16.347,
+   "end": 24.276
+  },
+  {
+   "text": "Number three. It explains every concept using my own project, the chat app I'm building.",
+   "start": 25.019,
+   "end": 31.033
+  },
+  {
+   "text": "Number four. It reviews my code like a senior developer, before any interviewer sees it.",
+   "start": 31.927,
+   "end": 37.477
+  },
+  {
+   "text": "Number five. It checks on me at 2 AM, and tells me exactly what I haven't finished.",
+   "start": 38.313,
+   "end": 44.245
+  },
+  {
+   "text": "It doesn't do the work for me. It makes sure I do it.",
+   "start": 44.988,
+   "end": 48.309
+  },
+  {
+   "text": "Comment the word prompts, and I'll send you all five.",
+   "start": 49.064,
+   "end": 52.93
+  }
+ ],
+ "words": [
+  {
+   "text": "Stop",
+   "seg": 0,
+   "start": 0.0,
+   "end": 0.325
+  },
+  {
+   "text": "using",
+   "seg": 0,
+   "start": 0.395,
+   "end": 0.615
+  },
+  {
+   "text": "Claude",
+   "seg": 0,
+   "start": 0.673,
+   "end": 0.964
+  },
+  {
+   "text": "like",
+   "seg": 0,
+   "start": 0.998,
+   "end": 1.173
+  },
+  {
+   "text": "Google.",
+   "seg": 0,
+   "start": 1.196,
+   "end": 1.672
+  },
+  {
+   "text": "Here",
+   "seg": 0,
+   "start": 1.846,
+   "end": 2.055
+  },
+  {
+   "text": "are",
+   "seg": 0,
+   "start": 2.101,
+   "end": 2.218
+  },
+  {
+   "text": "five",
+   "seg": 0,
+   "start": 2.264,
+   "end": 2.508
+  },
+  {
+   "text": "things",
+   "seg": 0,
+   "start": 2.543,
+   "end": 2.786
+  },
+  {
+   "text": "I",
+   "seg": 0,
+   "start": 2.937,
+   "end": 3.053
+  },
+  {
+   "text": "use",
+   "seg": 0,
+   "start": 3.228,
+   "end": 3.483
+  },
+  {
+   "text": "it",
+   "seg": 0,
+   "start": 3.518,
+   "end": 3.587
+  },
+  {
+   "text": "for",
+   "seg": 0,
+   "start": 3.634,
+   "end": 3.773
+  },
+  {
+   "text": "every",
+   "seg": 0,
+   "start": 3.855,
+   "end": 4.087
+  },
+  {
+   "text": "day,",
+   "seg": 0,
+   "start": 4.133,
+   "end": 4.493
+  },
+  {
+   "text": "while",
+   "seg": 0,
+   "start": 4.737,
+   "end": 4.992
+  },
+  {
+   "text": "preparing",
+   "seg": 0,
+   "start": 5.039,
+   "end": 5.457
+  },
+  {
+   "text": "for",
+   "seg": 0,
+   "start": 5.503,
+   "end": 5.619
+  },
+  {
+   "text": "a",
+   "seg": 0,
+   "start": 5.677,
+   "end": 5.7
+  },
+  {
+   "text": "thirty",
+   "seg": 0,
+   "start": 5.793,
+   "end": 6.223
+  },
+  {
+   "text": "L",
+   "seg": 0,
+   "start": 6.374,
+   "end": 6.548
+  },
+  {
+   "text": "P",
+   "seg": 0,
+   "start": 6.618,
+   "end": 6.676
+  },
+  {
+   "text": "A",
+   "seg": 0,
+   "start": 6.85,
+   "end": 6.943
+  },
+  {
+   "text": "job.",
+   "seg": 0,
+   "start": 7.036,
+   "end": 7.488
+  },
+  {
+   "text": "Number",
+   "seg": 1,
+   "start": 8.266,
+   "end": 8.58
+  },
+  {
+   "text": "one.",
+   "seg": 1,
+   "start": 8.649,
+   "end": 9.067
+  },
+  {
+   "text": "It",
+   "seg": 1,
+   "start": 9.242,
+   "end": 9.416
+  },
+  {
+   "text": "plans",
+   "seg": 1,
+   "start": 9.474,
+   "end": 9.799
+  },
+  {
+   "text": "my",
+   "seg": 1,
+   "start": 9.857,
+   "end": 9.985
+  },
+  {
+   "text": "day.",
+   "seg": 1,
+   "start": 10.054,
+   "end": 10.437
+  },
+  {
+   "text": "My",
+   "seg": 1,
+   "start": 10.948,
+   "end": 11.122
+  },
+  {
+   "text": "sixteen-week",
+   "seg": 1,
+   "start": 11.204,
+   "end": 11.877
+  },
+  {
+   "text": "plan",
+   "seg": 1,
+   "start": 11.935,
+   "end": 12.214
+  },
+  {
+   "text": "becomes",
+   "seg": 1,
+   "start": 12.283,
+   "end": 12.632
+  },
+  {
+   "text": "today's",
+   "seg": 1,
+   "start": 12.701,
+   "end": 13.142
+  },
+  {
+   "text": "to-do",
+   "seg": 1,
+   "start": 13.224,
+   "end": 13.514
+  },
+  {
+   "text": "list,",
+   "seg": 1,
+   "start": 13.572,
+   "end": 14.025
+  },
+  {
+   "text": "right",
+   "seg": 1,
+   "start": 14.199,
+   "end": 14.466
+  },
+  {
+   "text": "inside",
+   "seg": 1,
+   "start": 14.512,
+   "end": 14.907
+  },
+  {
+   "text": "Notion.",
+   "seg": 1,
+   "start": 14.977,
+   "end": 15.534
+  },
+  {
+   "text": "Number",
+   "seg": 2,
+   "start": 16.347,
+   "end": 16.648
+  },
+  {
+   "text": "two.",
+   "seg": 2,
+   "start": 16.695,
+   "end": 17.113
+  },
+  {
+   "text": "Hints,",
+   "seg": 2,
+   "start": 17.322,
+   "end": 17.949
+  },
+  {
+   "text": "not",
+   "seg": 2,
+   "start": 18.065,
+   "end": 18.332
+  },
+  {
+   "text": "answers.",
+   "seg": 2,
+   "start": 18.39,
+   "end": 18.993
+  },
+  {
+   "text": "Stuck",
+   "seg": 2,
+   "start": 19.202,
+   "end": 19.481
+  },
+  {
+   "text": "on",
+   "seg": 2,
+   "start": 19.551,
+   "end": 19.632
+  },
+  {
+   "text": "a",
+   "seg": 2,
+   "start": 19.678,
+   "end": 19.702
+  },
+  {
+   "text": "DSA",
+   "seg": 2,
+   "start": 19.783,
+   "end": 20.224
+  },
+  {
+   "text": "problem?",
+   "seg": 2,
+   "start": 20.271,
+   "end": 20.839
+  },
+  {
+   "text": "I",
+   "seg": 2,
+   "start": 21.223,
+   "end": 21.35
+  },
+  {
+   "text": "ask",
+   "seg": 2,
+   "start": 21.501,
+   "end": 21.768
+  },
+  {
+   "text": "for",
+   "seg": 2,
+   "start": 21.838,
+   "end": 22.0
+  },
+  {
+   "text": "one",
+   "seg": 2,
+   "start": 22.093,
+   "end": 22.314
+  },
+  {
+   "text": "hint,",
+   "seg": 2,
+   "start": 22.349,
+   "end": 22.674
+  },
+  {
+   "text": "then",
+   "seg": 2,
+   "start": 22.825,
+   "end": 23.127
+  },
+  {
+   "text": "I",
+   "seg": 2,
+   "start": 23.37,
+   "end": 23.463
+  },
+  {
+   "text": "try",
+   "seg": 2,
+   "start": 23.579,
+   "end": 23.788
+  },
+  {
+   "text": "again.",
+   "seg": 2,
+   "start": 23.846,
+   "end": 24.276
+  },
+  {
+   "text": "Number",
+   "seg": 3,
+   "start": 25.019,
+   "end": 25.309
+  },
+  {
+   "text": "three.",
+   "seg": 3,
+   "start": 25.367,
+   "end": 25.808
+  },
+  {
+   "text": "It",
+   "seg": 3,
+   "start": 26.052,
+   "end": 26.203
+  },
+  {
+   "text": "explains",
+   "seg": 3,
+   "start": 26.261,
+   "end": 26.761
+  },
+  {
+   "text": "every",
+   "seg": 3,
+   "start": 26.888,
+   "end": 27.225
+  },
+  {
+   "text": "concept",
+   "seg": 3,
+   "start": 27.295,
+   "end": 27.771
+  },
+  {
+   "text": "using",
+   "seg": 3,
+   "start": 27.852,
+   "end": 28.119
+  },
+  {
+   "text": "my",
+   "seg": 3,
+   "start": 28.177,
+   "end": 28.316
+  },
+  {
+   "text": "own",
+   "seg": 3,
+   "start": 28.409,
+   "end": 28.63
+  },
+  {
+   "text": "project,",
+   "seg": 3,
+   "start": 28.699,
+   "end": 29.326
+  },
+  {
+   "text": "the",
+   "seg": 3,
+   "start": 29.57,
+   "end": 29.686
+  },
+  {
+   "text": "chat",
+   "seg": 3,
+   "start": 29.756,
+   "end": 30.035
+  },
+  {
+   "text": "app",
+   "seg": 3,
+   "start": 30.104,
+   "end": 30.243
+  },
+  {
+   "text": "I'm",
+   "seg": 3,
+   "start": 30.325,
+   "end": 30.476
+  },
+  {
+   "text": "building.",
+   "seg": 3,
+   "start": 30.522,
+   "end": 31.033
+  },
+  {
+   "text": "Number",
+   "seg": 4,
+   "start": 31.927,
+   "end": 32.24
+  },
+  {
+   "text": "four.",
+   "seg": 4,
+   "start": 32.31,
+   "end": 32.786
+  },
+  {
+   "text": "It",
+   "seg": 4,
+   "start": 32.902,
+   "end": 33.041
+  },
+  {
+   "text": "reviews",
+   "seg": 4,
+   "start": 33.1,
+   "end": 33.459
+  },
+  {
+   "text": "my",
+   "seg": 4,
+   "start": 33.529,
+   "end": 33.634
+  },
+  {
+   "text": "code",
+   "seg": 4,
+   "start": 33.715,
+   "end": 33.982
+  },
+  {
+   "text": "like",
+   "seg": 4,
+   "start": 34.017,
+   "end": 34.168
+  },
+  {
+   "text": "a",
+   "seg": 4,
+   "start": 34.202,
+   "end": 34.226
+  },
+  {
+   "text": "senior",
+   "seg": 4,
+   "start": 34.307,
+   "end": 34.667
+  },
+  {
+   "text": "developer,",
+   "seg": 4,
+   "start": 34.725,
+   "end": 35.422
+  },
+  {
+   "text": "before",
+   "seg": 4,
+   "start": 35.55,
+   "end": 35.968
+  },
+  {
+   "text": "any",
+   "seg": 4,
+   "start": 36.037,
+   "end": 36.293
+  },
+  {
+   "text": "interviewer",
+   "seg": 4,
+   "start": 36.351,
+   "end": 36.873
+  },
+  {
+   "text": "sees",
+   "seg": 4,
+   "start": 36.954,
+   "end": 37.21
+  },
+  {
+   "text": "it.",
+   "seg": 4,
+   "start": 37.268,
+   "end": 37.477
+  },
+  {
+   "text": "Number",
+   "seg": 5,
+   "start": 38.313,
+   "end": 38.615
+  },
+  {
+   "text": "five.",
+   "seg": 5,
+   "start": 38.696,
+   "end": 39.16
+  },
+  {
+   "text": "It",
+   "seg": 5,
+   "start": 39.601,
+   "end": 39.776
+  },
+  {
+   "text": "checks",
+   "seg": 5,
+   "start": 39.822,
+   "end": 40.112
+  },
+  {
+   "text": "on",
+   "seg": 5,
+   "start": 40.159,
+   "end": 40.252
+  },
+  {
+   "text": "me",
+   "seg": 5,
+   "start": 40.31,
+   "end": 40.437
+  },
+  {
+   "text": "at",
+   "seg": 5,
+   "start": 40.495,
+   "end": 40.635
+  },
+  {
+   "text": "2",
+   "seg": 5,
+   "start": 40.681,
+   "end": 40.879
+  },
+  {
+   "text": "AM,",
+   "seg": 5,
+   "start": 40.995,
+   "end": 41.564
+  },
+  {
+   "text": "and",
+   "seg": 5,
+   "start": 41.714,
+   "end": 41.865
+  },
+  {
+   "text": "tells",
+   "seg": 5,
+   "start": 41.912,
+   "end": 42.132
+  },
+  {
+   "text": "me",
+   "seg": 5,
+   "start": 42.19,
+   "end": 42.295
+  },
+  {
+   "text": "exactly",
+   "seg": 5,
+   "start": 42.353,
+   "end": 42.992
+  },
+  {
+   "text": "what",
+   "seg": 5,
+   "start": 43.038,
+   "end": 43.224
+  },
+  {
+   "text": "I",
+   "seg": 5,
+   "start": 43.293,
+   "end": 43.317
+  },
+  {
+   "text": "haven't",
+   "seg": 5,
+   "start": 43.398,
+   "end": 43.665
+  },
+  {
+   "text": "finished.",
+   "seg": 5,
+   "start": 43.7,
+   "end": 44.245
+  },
+  {
+   "text": "It",
+   "seg": 6,
+   "start": 44.988,
+   "end": 45.139
+  },
+  {
+   "text": "doesn't",
+   "seg": 6,
+   "start": 45.186,
+   "end": 45.476
+  },
+  {
+   "text": "do",
+   "seg": 6,
+   "start": 45.511,
+   "end": 45.604
+  },
+  {
+   "text": "the",
+   "seg": 6,
+   "start": 45.673,
+   "end": 45.743
+  },
+  {
+   "text": "work",
+   "seg": 6,
+   "start": 45.801,
+   "end": 46.01
+  },
+  {
+   "text": "for",
+   "seg": 6,
+   "start": 46.057,
+   "end": 46.161
+  },
+  {
+   "text": "me.",
+   "seg": 6,
+   "start": 46.219,
+   "end": 46.509
+  },
+  {
+   "text": "It",
+   "seg": 6,
+   "start": 46.788,
+   "end": 46.939
+  },
+  {
+   "text": "makes",
+   "seg": 6,
+   "start": 47.009,
+   "end": 47.241
+  },
+  {
+   "text": "sure",
+   "seg": 6,
+   "start": 47.276,
+   "end": 47.531
+  },
+  {
+   "text": "I",
+   "seg": 6,
+   "start": 47.601,
+   "end": 47.67
+  },
+  {
+   "text": "do",
+   "seg": 6,
+   "start": 47.845,
+   "end": 47.984
+  },
+  {
+   "text": "it.",
+   "seg": 6,
+   "start": 48.065,
+   "end": 48.309
+  },
+  {
+   "text": "Comment",
+   "seg": 7,
+   "start": 49.064,
+   "end": 49.447
+  },
+  {
+   "text": "the",
+   "seg": 7,
+   "start": 49.482,
+   "end": 49.551
+  },
+  {
+   "text": "word",
+   "seg": 7,
+   "start": 49.598,
+   "end": 49.818
+  },
+  {
+   "text": "prompts,",
+   "seg": 7,
+   "start": 49.876,
+   "end": 50.48
+  },
+  {
+   "text": "and",
+   "seg": 7,
+   "start": 50.654,
+   "end": 50.91
+  },
+  {
+   "text": "I'll",
+   "seg": 7,
+   "start": 51.002,
+   "end": 51.2
+  },
+  {
+   "text": "send",
+   "seg": 7,
+   "start": 51.269,
+   "end": 51.49
+  },
+  {
+   "text": "you",
+   "seg": 7,
+   "start": 51.56,
+   "end": 51.699
+  },
+  {
+   "text": "all",
+   "seg": 7,
+   "start": 51.978,
+   "end": 52.314
+  },
+  {
+   "text": "five.",
+   "seg": 7,
+   "start": 52.407,
+   "end": 52.93
+  }
+ ]
+}
