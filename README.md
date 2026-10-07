@@ -43,6 +43,7 @@ node render.js ../reels/day02 stills 1.5,9.6   # spot-check frames
 
 Colors: blue `#3884FF` · light blue `#8CBEFF` · background `#080A10` · text `#F2F5FA` · muted `#8C96AA` · panel `#101520` · border `#323E56`.
 Fonts: Inter Display (ExtraBold/Black) for headlines and captions, JetBrains Mono for prompts. Both are OFL and live in `engine/fonts`.
+Panels: blue liquid glass (`"glass": "blue"` in reel.json; see `engine/lib/glass.js`).
 Logo: an original terminal-prompt tile (blue rounded square, dark `>`, blinking white `_`), drawn in code in `engine/lib/draw.js`.
 
 ## Posting checklist
@@ -57,5 +58,5 @@ Logo: an original terminal-prompt tile (blue rounded square, dark `>`, blinking 
 
 | Day | Posted | Length | Views (48h) | Avg watch | Saves | Shares | Follows | Notes |
 |-----|--------|--------|-------------|-----------|-------|--------|---------|-------|
-| 01 | | 41s | | | | | | |
+| 01 | | 33.5s (remade, was 41s) | | | | | | |
 | 02 | | 32.4s | | | | | | |

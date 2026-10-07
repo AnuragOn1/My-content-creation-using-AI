@@ -44,5 +44,9 @@
       "show": "Tomorrow, Day 02: make AI write exactly like you. Follow so you don't miss it."
     }
   ],
-  "glass": "mixed"
+  "glass": "blue",
+  "cover": {
+    "scene": "hook",
+    "t": 2.1
+  }
 }

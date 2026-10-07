@@ -91,8 +91,8 @@ module.exports = function build({ tl, cues, D, core }) {
       D.drawStroke(ctx, strike, t, tWrong + 0.1, { color: BRAND.bad, width: 6, dur: 0.3 });
 
       // headline
-      D.slam(ctx, "YOU'RE", L1[0].cx, 700, 104, F.k, BRAND.text, t, tYou - 0.28, { from: 1.8 });
-      D.slam(ctx, 'USING', L1[1].cx, 700, 104, F.k, BRAND.text, t, Math.min(tUsing - 0.04, -0.1));
+      D.slam(ctx, "YOU'RE", L1[0].cx, 700, 104, F.k, BRAND.text, t, -0.34, { from: 1.8 });
+      D.slam(ctx, 'USING', L1[1].cx, 700, 104, F.k, BRAND.text, t, -0.3);
       D.highlight(ctx, CX - 200, 735, 400, 250, t, tAI - 0.04);
       D.slam(ctx, 'AI', CX, 950, 300, F.k, BRAND.text, t, tAI - 0.04, { from: 2.2 });
       D.slam(ctx, 'WRONG.', CX, 1205, 190, F.k, BRAND.bad, t, tWrong - 0.04, { from: 2.6, glow: 'rgba(255,92,108,0.7)', rot: -0.2 });
@@ -185,8 +185,8 @@ module.exports = function build({ tl, cues, D, core }) {
     cues.add('type', tWrite - 0.05, 0.55, { dur: T1.n / cps1, cps: cps1 });
     cues.add('type', tType2, 0.4, { dur: T2.n / cps2, cps: 24 });
     const marks = [
-      ['esteemed company', tSome],
-      ['hard-working team player', tSome + 0.18],
+      ['esteemed', tSome],
+      ['hard-working', tSome + 0.18],
       ['passion', tGen],
     ].map(([s, t0], i) => {
       const f = D.typeFind(T2, s);
@@ -414,7 +414,7 @@ module.exports = function build({ tl, cues, D, core }) {
     return (ctx, t) => {
       D.maskUp(ctx, 'SAME AI', CX, 364, 90, F.k, BRAND.text, t, s0 + 0.08);
       D.fadeUp(ctx, 'same model · different prompt', CX, 424, 26, F.monoM, BRAND.muted, t, tAI);
-      const a = D.panel(ctx, PB, t, tBefore - 0.3, { tone: 'bad' });
+      const a = D.panel(ctx, PB, t, Math.min(tBefore - 0.3, s0 + 0.3), { tone: 'bad' });
       if (a > 0) {
         const dim = 1 - 0.5 * ease.outCubic(inv(tGen, tGen + 0.3, t));
         D.pill(ctx, 'BEFORE', 230, 470, t, tBefore - 0.1, { size: 22, dot: BRAND.bad, color: BRAND.text, bg: '#1A1414', border: 'rgba(255,92,108,0.6)' });
