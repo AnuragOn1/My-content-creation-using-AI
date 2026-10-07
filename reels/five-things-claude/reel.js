@@ -102,10 +102,10 @@ boot(({ stage, timing: T, params }) => {
         rows.forEach((r, k) => sfx(t0 + k * 0.22, "pop", 0.55));
         const tChip = at(1, "Notion");
         sfx(tChip, "tick", 0.8);
-        return (t) => {
+        return Object.assign((t) => {
           rows.forEach((r, k) => enter(r, t, t0 + k * 0.22, { dx: 40, dy: 0, dur: 0.35 }));
           enter(chip, t, tChip, { dy: 20, s0: 0.9 });
-        };
+        }, { firstAt: t0 });
       },
     },
     {
@@ -117,11 +117,11 @@ boot(({ stage, timing: T, params }) => {
         const chip = el("div", "chip", c, "↻ trying again myself");
         const tMe = at(2, "Stuck"), tAi = at(2, "one"), tChip = at(2, "try");
         sfx(tMe, "pop", 0.6); sfx(tAi, "pop", 0.6); sfx(tChip, "tick", 0.8);
-        return (t) => {
+        return Object.assign((t) => {
           enter(me, t, tMe, { dx: 50, dy: 0, s0: 0.92 });
           enter(ai, t, tAi, { dx: -50, dy: 0, s0: 0.92 });
           enter(chip, t, tChip, { dy: 20, s0: 0.9 });
-        };
+        }, { firstAt: tMe });
       },
     },
     {
@@ -132,10 +132,10 @@ boot(({ stage, timing: T, params }) => {
         const ai = el("div", "bubble ai", c, "<span class=\"who\">CLAUDE</span>When you hit send, your app <b>awaits</b> the server. Only after it replies do you show ✓✓. That pause is await.");
         const tMe = at(3, "own"), tAi = at(3, "chat");
         sfx(tMe, "pop", 0.6); sfx(tAi, "pop", 0.6);
-        return (t) => {
+        return Object.assign((t) => {
           enter(me, t, tMe, { dx: 50, dy: 0, s0: 0.92 });
           enter(ai, t, tAi, { dx: -50, dy: 0, s0: 0.92 });
-        };
+        }, { firstAt: tMe });
       },
     },
     {
@@ -174,10 +174,10 @@ boot(({ stage, timing: T, params }) => {
            <div class="left">☐ DSA problems 58–64<br>☐ 5 lines in notes.md<br>☐ Update progress.md</div>`);
         const tClock = at(5, "2"), tNotif = at(5, "exactly");
         sfx(tNotif, "ping", 0.7);
-        return (t) => {
+        return Object.assign((t) => {
           enter(clock, t, tClock - 0.1, { dy: 0, s0: 1.3, blur0: 14, e: ease.outQuint });
           enter(notif, t, tNotif - 0.1, { dy: -40, s0: 0.95 });
-        };
+        }, { firstAt: tClock - 0.1 });
       },
     },
   ];
@@ -205,7 +205,8 @@ boot(({ stage, timing: T, params }) => {
       fill.style.clipPath = `inset(${(1 - f) * 100}% 0 0 0)`;
       enter(title, t, tTitle);
       enter(sub, t, tSub);
-      enter(card, t, Math.min(tSub, tTitle + 0.6) + 0.05, { dy: 60, dur: 0.5 });
+      // Cards with animated contents arrive just before them, so no empty box sits on screen.
+      enter(card, t, Math.max(Math.min(tSub, tTitle + 0.6) + 0.05, (renderCard.firstAt ?? 0) - 0.45), { dy: 60, dur: 0.5 });
       renderCard(t);
       return true;
     };
