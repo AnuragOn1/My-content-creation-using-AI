@@ -47,5 +47,7 @@
   "cover": {
     "scene": "hook",
     "t": 3.2
-  }
+  },
+  "res": 2,
+  "grain": 0
 }

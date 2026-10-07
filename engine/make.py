@@ -35,11 +35,17 @@ def main():
     run("node", "render.js", reel, "video", a.workers)
 
     out = reel / f"{day}.mp4"
+    # 4K (res 2): high bitrate so Instagram gets a clean source; 1080p stays under 30 MB
+    res = spec.get("res", 1)
+    grain = spec.get("grain", 5)
+    vf = (f"noise=c0s={grain}:c0f=t+u," if grain else "") + "format=yuv420p"
+    rate = (["-crf", "14", "-maxrate", "20M", "-bufsize", "40M", "-level:v", "5.1"] if res > 1
+            else ["-crf", "18", "-maxrate", "6M", "-bufsize", "12M"])
     run("ffmpeg", "-y", "-loglevel", "error",
         "-i", build / "video.mp4", "-i", build / "mix.wav",
-        "-vf", "noise=c0s=5:c0f=t+u,format=yuv420p",
-        "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", "-crf", "18",
-        "-maxrate", "6M", "-bufsize", "12M", "-r", "30", "-g", "60",
+        "-vf", vf,
+        "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", *rate,
+        "-r", "30", "-g", "60",
         "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
         "-movflags", "+faststart", "-shortest", out)
 

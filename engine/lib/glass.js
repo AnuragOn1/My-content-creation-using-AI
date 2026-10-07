@@ -11,6 +11,7 @@
 //      opposite corner, dark on the unlit sides, plus a broad bevel catch-light
 
 const { createCanvas, ImageData } = require('@napi-rs/canvas');
+const { RES } = require('./core');
 
 // sat: how much colour the backdrop keeps under this tint (low for red, so the
 // blue background glow doesn't turn it purple); alpha: tint strength.
@@ -138,8 +139,10 @@ function glass(ctx, x, y, w, h, r, o = {}) {
   const blur = o.blur ?? (small ? 4 : 7);
   const m = Math.ceil(bevel * strength) + 6;
   const t = o.t ?? 0;
-  const W2 = w + 2 * m;
-  const H2 = h + 2 * m;
+  // the pixel work happens at output resolution (k px per scene unit)
+  const k = RES.s;
+  const W2 = (w + 2 * m) * k;
+  const H2 = (h + 2 * m) * k;
 
   // 1. backdrop -> panel space (inverse of the current transform): blurred + sharp copies
   const T = ctx.getTransform();
@@ -161,7 +164,7 @@ function glass(ctx, x, y, w, h, r, o = {}) {
     c2.globalAlpha = 1;
     c2.fillStyle = '#080A10';
     c2.fillRect(0, 0, W2, H2);
-    c2.setTransform(ia, ib, ic, id, ie - (x - m), iff - (y - m));
+    c2.setTransform(k * ia, k * ib, k * ic, k * id, k * (ie - (x - m)), k * (iff - (y - m)));
     c2.filter = `blur(${bl}px) ${filt}`;
     if (theme.under && theme.under !== ctx.canvas) c2.drawImage(theme.under, 0, 0);
     c2.drawImage(ctx.canvas, 0, 0);
@@ -170,7 +173,7 @@ function glass(ctx, x, y, w, h, r, o = {}) {
   }
 
   // 2. refraction at the rim, with a small per-channel split
-  const map = refractionMap(w, h, r, bevel, strength, m);
+  const map = refractionMap(w * k, h * k, r * k, bevel * k, strength, m * k);
   const s = bx.getImageData(0, 0, W2, H2).data;
   const sh = sx.getImageData(0, 0, W2, H2).data;
   const out = new Uint8ClampedArray(s);
@@ -231,7 +234,7 @@ function glass(ctx, x, y, w, h, r, o = {}) {
   ctx.save();
   rrPath(ctx, x, y, w, h, r);
   ctx.clip();
-  ctx.drawImage(G, x - m, y - m);
+  ctx.drawImage(G, x - m, y - m, w + 2 * m, h + 2 * m);
 
   // 3. light tint + frost (keeps the pane clear, lifts it off the black)
   const ta = o.tintAlpha ?? tint.alpha;

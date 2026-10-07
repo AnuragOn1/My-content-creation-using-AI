@@ -115,4 +115,7 @@ class Cues {
   }
 }
 
-module.exports = { W, H, FPS, BRAND, clamp, lerp, inv, ease, prog, rng, noise1, Timeline, Cues };
+// Output scale: scenes are authored in 1080x1920 units; RES.s = 2 renders natively at 4K.
+const RES = { s: 1 };
+
+module.exports = { RES, W, H, FPS, BRAND, clamp, lerp, inv, ease, prog, rng, noise1, Timeline, Cues };

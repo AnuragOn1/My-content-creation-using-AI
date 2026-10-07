@@ -1,6 +1,6 @@
 # Day 02: Make AI write exactly like YOU
 
-**Length:** 32.4s (Day 01 was 41s) · **Voice:** Kokoro `af_heart`, female, speed 1.2 (~175 wpm) · **Beat:** original, 122 BPM, F minor
+**Length:** 32.4s · **Resolution:** 4K (2160×3840, native render) · **Voice:** Kokoro `af_heart`, female, speed 1.2 (~175 wpm) · **Beat:** original, 122 BPM, F minor
 
 | # | Time | Voiceover | On screen |
 |---|------|-----------|-----------|

@@ -14,10 +14,31 @@ const core = require('./lib/core');
 const D = require('./lib/draw');
 const fx = require('./lib/fx');
 
-const { W, H, FPS, Timeline, Cues } = core;
+const { W, H, FPS, RES, Timeline, Cues } = core;
+
+// Canvas shadows and filter blurs are in device pixels and ignore the transform,
+// so when rendering above 1080p every blur/shadow length is scaled by RES.s here.
+function scaleEffects(s) {
+  if (s === 1) return;
+  const P = Object.getPrototypeOf(createCanvas(1, 1).getContext('2d'));
+  for (const k of ['shadowBlur', 'shadowOffsetX', 'shadowOffsetY']) {
+    const d = Object.getOwnPropertyDescriptor(P, k);
+    Object.defineProperty(P, k, { ...d, set(v) { d.set.call(this, v * s); } });
+  }
+  const f = Object.getOwnPropertyDescriptor(P, 'filter');
+  Object.defineProperty(P, 'filter', {
+    ...f,
+    set(v) { f.set.call(this, String(v).replace(/(-?[\d.]+)px/g, (_, n) => `${n * s}px`)); },
+  });
+}
 
 function makeRenderer(reelDir) {
   const build = path.join(reelDir, 'build');
+  const spec = JSON.parse(fs.readFileSync(path.join(reelDir, 'reel.json'), 'utf8'));
+  RES.s = +(process.env.RES || spec.res || 1);
+  scaleEffects(RES.s);
+  const DW = W * RES.s;
+  const DH = H * RES.s;
   const tl = new Timeline(JSON.parse(fs.readFileSync(path.join(build, 'timeline.json'), 'utf8')));
   const cues = new Cues();
   const S = require(path.resolve(reelDir, 'scenes.js'))({ tl, cues, D, core, fx });
@@ -25,10 +46,9 @@ function makeRenderer(reelDir) {
   const post = new fx.Post();
   const shake = new fx.Shake(S.shakes);
   const caps = fx.buildCaptions(tl.words());
-  const out = createCanvas(W, H);
-  const L = createCanvas(W, H);
-  const BG = createCanvas(W, H);
-  const spec = JSON.parse(fs.readFileSync(path.join(reelDir, 'reel.json'), 'utf8'));
+  const out = createCanvas(DW, DH);
+  const L = createCanvas(DW, DH);
+  const BG = createCanvas(DW, DH);
   D.theme.glass = process.env.GLASS || spec.glass || null;
 
   const drawScene = (ctx, sc, t) => {
@@ -40,7 +60,7 @@ function makeRenderer(reelDir) {
 
   function render(t, opts = {}) {
     const ctx = out.getContext('2d');
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.setTransform(RES.s, 0, 0, RES.s, 0, 0);
     ctx.globalAlpha = 1;
     ctx.globalCompositeOperation = 'source-over';
     const tr = opts.scene ? null : S.transitions.find((x) => t >= x.at - x.dur / 2 && t < x.at + x.dur / 2);
@@ -48,8 +68,10 @@ function makeRenderer(reelDir) {
     const streak = tr && tr.type === 'whip' ? 1 - Math.abs(p - 0.5) * 2 : 0;
     if (tr) {
       // scenes render on a transparent layer mid-transition; glass needs the background under it
-      bg.draw(BG.getContext('2d'), t, streak);
-      ctx.drawImage(BG, 0, 0);
+      const bctx = BG.getContext('2d');
+      bctx.setTransform(RES.s, 0, 0, RES.s, 0, 0);
+      bg.draw(bctx, t, streak);
+      ctx.drawImage(BG, 0, 0, W, H);
       D.theme.under = BG;
     } else {
       bg.draw(ctx, t, streak);
@@ -63,7 +85,7 @@ function makeRenderer(reelDir) {
       const i = S.scenes.findIndex((s) => Math.abs(s.start - tr.at) < 1e-6);
       const sc = p < 0.5 ? S.scenes[i - 1] : S.scenes[i];
       const lctx = L.getContext('2d');
-      lctx.setTransform(1, 0, 0, 1, 0, 0);
+      lctx.setTransform(RES.s, 0, 0, RES.s, 0, 0);
       lctx.clearRect(0, 0, W, H);
       drawScene(lctx, sc, t);
       if (tr.type === 'circle') fx.circleWipe(ctx, L, L, p);
@@ -84,20 +106,20 @@ function makeRenderer(reelDir) {
     return out;
   }
 
-  return { render, S, tl, cues, frames: Math.ceil(S.end * FPS), build };
+  return { render, S, tl, cues, frames: Math.ceil(S.end * FPS), build, DW, DH };
 }
 
-function encoder(outFile) {
+function encoder(outFile, w, h) {
   return spawn('ffmpeg', [
     '-y', '-loglevel', 'error',
-    '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${W}x${H}`, '-r', String(FPS), '-i', '-',
+    '-f', 'rawvideo', '-pix_fmt', 'rgba', '-s', `${w}x${h}`, '-r', String(FPS), '-i', '-',
     '-c:v', 'libx264', '-preset', 'fast', '-crf', '9', '-pix_fmt', 'yuv420p', outFile,
   ], { stdio: ['pipe', 'inherit', 'inherit'] });
 }
 
 async function renderRange(reelDir, f0, f1, outFile) {
   const R = makeRenderer(reelDir);
-  const ff = encoder(outFile);
+  const ff = encoder(outFile, R.DW, R.DH);
   const done = new Promise((res, rej) => ff.on('close', (c) => (c === 0 ? res() : rej(new Error('ffmpeg ' + c)))));
   for (let f = f0; f < f1; f++) {
     const c = R.render(f / FPS);

@@ -59,4 +59,9 @@ Logo: an original terminal-prompt tile (blue rounded square, dark `>`, blinking 
 | Day | Posted | Length | Views (48h) | Avg watch | Saves | Shares | Follows | Notes |
 |-----|--------|--------|-------------|-----------|-------|--------|---------|-------|
 | 01 | | 33.5s (remade, was 41s) | | | | | | |
-| 02 | | 32.4s | | | | | | |
+| 02 | | 32.4s, 4K | | | | | | |
+
+## 4K renders
+
+Set `"res": 2` in a reel's `reel.json` to render natively at 2160×3840: text, lines and glass are drawn at 4K, not upscaled. `"grain": 0` turns off film grain, which Instagram's re-compression smears. A 4K build takes about 7 minutes and comes out around 60 MB.
+On Instagram, turn on **Settings → Data usage and media quality → Upload at highest quality** before posting, or the app compresses the upload more.

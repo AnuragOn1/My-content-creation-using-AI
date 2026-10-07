@@ -1,10 +1,10 @@
 // Frame-level effects: background, bloom, vignette, glitch, transitions, captions.
 
 const { createCanvas } = require('@napi-rs/canvas');
-const { W, H, BRAND, clamp, lerp, inv, ease, rng, noise1 } = require('./core');
+const { RES, W, H, BRAND, clamp, lerp, inv, ease, rng, noise1 } = require('./core');
 const { F, setFont, measure, rr } = require('./draw');
 
-const layer = () => createCanvas(W, H);
+const layer = () => createCanvas(W * RES.s, H * RES.s);
 
 // ---------- background: glow, dot grid, drifting particles ----------
 
@@ -20,8 +20,10 @@ class Background {
     g.fillStyle = rg;
     g.fillRect(0, 0, 1400, 1400);
 
-    this.grid = createCanvas(W + 120, H + 120);
+    const gs = RES.s;
+    this.grid = createCanvas((W + 120) * gs, (H + 120) * gs);
     const gg = this.grid.getContext('2d');
+    gg.scale(gs, gs);
     // faint blueprint lines: barely there on black, but they give glass panels straight edges to bend
     gg.fillStyle = 'rgba(140,190,255,0.045)';
     for (let x = 0; x < W + 120; x += 60) gg.fillRect(x, 0, 1, H + 120);
@@ -50,7 +52,7 @@ class Background {
     ctx.fillStyle = BRAND.bg;
     ctx.fillRect(0, 0, W, H);
     // grid with slow parallax
-    ctx.drawImage(this.grid, -60 + Math.sin(t * 0.2) * 20, -60 - ((t * 8) % 60));
+    ctx.drawImage(this.grid, -60 + Math.sin(t * 0.2) * 20, -60 - ((t * 8) % 60), W + 120, H + 120);
     // two drifting glows
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
@@ -78,8 +80,10 @@ class Background {
 
 class Post {
   constructor() {
-    this.small = createCanvas(W / 4, H / 4);
-    this.small2 = createCanvas(W / 4, H / 4);
+    this.sw = (W * RES.s) / 4;
+    this.sh = (H * RES.s) / 4;
+    this.small = createCanvas(this.sw, this.sh);
+    this.small2 = createCanvas(this.sw, this.sh);
     this.vig = createCanvas(W, H);
     const v = this.vig.getContext('2d');
     const vg = v.createRadialGradient(W / 2, H * 0.45, H * 0.25, W / 2, H * 0.45, H * 0.72);
@@ -87,14 +91,14 @@ class Post {
     vg.addColorStop(1, 'rgba(0,0,0,0.62)');
     v.fillStyle = vg;
     v.fillRect(0, 0, W, H);
-    this.tmp = createCanvas(W, H);
+    this.tmp = layer();
   }
 
   bloom(canvas, amount = 0.38) {
     const s = this.small.getContext('2d');
     const s2 = this.small2.getContext('2d');
     s.globalCompositeOperation = 'copy';
-    s.drawImage(canvas, 0, 0, W / 4, H / 4);
+    s.drawImage(canvas, 0, 0, this.sw, this.sh);
     // keep only the bright parts: x^4
     for (let k = 0; k < 2; k++) {
       s2.globalCompositeOperation = 'copy';
@@ -115,7 +119,7 @@ class Post {
   }
 
   vignette(ctx) {
-    ctx.drawImage(this.vig, 0, 0);
+    ctx.drawImage(this.vig, 0, 0, W, H);
   }
 
   // RGB split + sliced displacement.
@@ -126,7 +130,10 @@ class Post {
     tctx.globalCompositeOperation = 'copy';
     tctx.drawImage(canvas, 0, 0);
     const ctx = canvas.getContext('2d');
-    const off = 6 + amt * 18;
+    const S = RES.s;
+    const DW = W * S;
+    const DH = H * S;
+    const off = (6 + amt * 18) * S;
     // channel split by multiplying a copy with pure R / G / B and adding them back offset
     const ch = this._ch || (this._ch = [layer(), layer(), layer()]);
     const cols = ['#FF0000', '#00FF00', '#0000FF'];
@@ -134,14 +141,15 @@ class Post {
       const x = c.getContext('2d');
       x.globalCompositeOperation = 'copy';
       x.fillStyle = cols[i];
-      x.fillRect(0, 0, W, H);
+      x.fillRect(0, 0, DW, DH);
       x.globalCompositeOperation = 'multiply';
       x.drawImage(this.tmp, 0, 0);
     });
     ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalCompositeOperation = 'copy';
     ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0, 0, DW, DH);
     ctx.globalCompositeOperation = 'lighter';
     ctx.drawImage(ch[0], off, 0);
     ctx.drawImage(ch[1], 0, 0);
@@ -151,11 +159,12 @@ class Post {
     tctx.drawImage(canvas, 0, 0);
     const n = Math.floor(3 + amt * 6);
     ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
     for (let i = 0; i < n; i++) {
-      const y = r() * H;
-      const h = 8 + r() * 70 * amt;
-      const dx = (r() - 0.5) * 120 * amt;
-      ctx.drawImage(this.tmp, 0, y, W, h, dx, y, W, h);
+      const y = r() * DH;
+      const h = (8 + r() * 70 * amt) * S;
+      const dx = (r() - 0.5) * 120 * amt * S;
+      ctx.drawImage(this.tmp, 0, y, DW, h, dx, y, DW, h);
     }
     ctx.restore();
   }
@@ -168,7 +177,7 @@ function circleWipe(ctx, layerA, layerB, p, cx = 540, cy = 860) {
   const R = Math.hypot(Math.max(cx, W - cx), Math.max(cy, H - cy)) + 20;
   if (p < 0.5) {
     const u = ease.inCubic(p / 0.5);
-    ctx.drawImage(layerA, 0, 0);
+    ctx.drawImage(layerA, 0, 0, W, H);
     ctx.save();
     ctx.fillStyle = BRAND.blue;
     ctx.beginPath();
@@ -180,7 +189,7 @@ function circleWipe(ctx, layerA, layerB, p, cx = 540, cy = 860) {
     ctx.restore();
   } else {
     const u = ease.outCubic((p - 0.5) / 0.5);
-    ctx.drawImage(layerB, 0, 0);
+    ctx.drawImage(layerB, 0, 0, W, H);
     ctx.save();
     ctx.fillStyle = BRAND.blue;
     ctx.beginPath();
@@ -219,7 +228,7 @@ function whipPan(ctx, layerA, layerB, p) {
   for (let i = 0; i < samples; i++) {
     const k = i / (samples - 1) - 0.5;
     ctx.globalAlpha = i === Math.floor(samples / 2) ? 0.4 : 0.6 / (samples - 1);
-    ctx.drawImage(L, x + k * spread, 0);
+    ctx.drawImage(L, x + k * spread, 0, W, H);
   }
   ctx.restore();
   return vel / 3;
