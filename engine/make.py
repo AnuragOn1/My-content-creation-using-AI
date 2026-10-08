@@ -41,13 +41,19 @@ def main():
     vf = (f"noise=c0s={grain}:c0f=t+u," if grain else "") + "format=yuv420p"
     rate = (["-crf", "14", "-maxrate", "20M", "-bufsize", "40M", "-level:v", "5.1"] if res > 1
             else ["-crf", "18", "-maxrate", "6M", "-bufsize", "12M"])
-    run("ffmpeg", "-y", "-loglevel", "error",
-        "-i", build / "video.mp4", "-i", build / "mix.wav",
-        "-vf", vf,
-        "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", *rate,
-        "-r", "30", "-g", "60",
-        "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
-        "-movflags", "+faststart", "-shortest", out)
+    # with an external song: the post version has no music (add the song in Instagram),
+    # plus a preview with the song mixed in to check the beat sync
+    outputs = [(out, "mix.wav")]
+    if (spec.get("music") or {}).get("track"):
+        outputs = [(out, "mix_nomusic.wav"), (reel / f"{day}_preview_with_song.mp4", "mix.wav")]
+    for dst, mixfile in outputs:
+        run("ffmpeg", "-y", "-loglevel", "error",
+            "-i", build / "video.mp4", "-i", build / mixfile,
+            "-vf", vf,
+            "-c:v", "libx264", "-preset", "slow", "-profile:v", "high", *rate,
+            "-r", "30", "-g", "60",
+            "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+            "-movflags", "+faststart", "-shortest", dst)
 
     cues = json.loads((build / "cues.json").read_text())
     cover = spec.get("cover", {"scene": "hook", "t": 3.2})

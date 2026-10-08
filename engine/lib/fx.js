@@ -9,13 +9,18 @@ const layer = () => createCanvas(W * RES.s, H * RES.s);
 // ---------- background: glow, dot grid, drifting particles ----------
 
 class Background {
-  constructor(seed = 3) {
+  // o.bright: >1 lifts the glow, grid and base colour; o.bpm: glow pulses on every beat
+  constructor(seed = 3, o = {}) {
+    const b = o.bright ?? 1;
+    this.bright = b;
+    this.beat = o.bpm ? 60 / o.bpm : 0;
+    this.base = b > 1 ? '#0B1222' : BRAND.bg;
     this.glow = createCanvas(1400, 1400);
     const g = this.glow.getContext('2d');
     const rg = g.createRadialGradient(700, 700, 0, 700, 700, 700);
-    rg.addColorStop(0, 'rgba(56,132,255,0.34)');
-    rg.addColorStop(0.35, 'rgba(56,132,255,0.13)');
-    rg.addColorStop(0.7, 'rgba(56,132,255,0.03)');
+    rg.addColorStop(0, `rgba(56,132,255,${0.34 * b})`);
+    rg.addColorStop(0.35, `rgba(56,132,255,${0.13 * b})`);
+    rg.addColorStop(0.7, `rgba(56,132,255,${0.03 * b})`);
     rg.addColorStop(1, 'rgba(56,132,255,0)');
     g.fillStyle = rg;
     g.fillRect(0, 0, 1400, 1400);
@@ -25,7 +30,7 @@ class Background {
     const gg = this.grid.getContext('2d');
     gg.scale(gs, gs);
     // faint blueprint lines: barely there on black, but they give glass panels straight edges to bend
-    gg.fillStyle = 'rgba(140,190,255,0.045)';
+    gg.fillStyle = `rgba(140,190,255,${0.045 * Math.min(b, 1.5)})`;
     for (let x = 0; x < W + 120; x += 60) gg.fillRect(x, 0, 1, H + 120);
     for (let y = 0; y < H + 120; y += 60) gg.fillRect(0, y, W + 120, 1);
     gg.fillStyle = 'rgba(140,150,170,0.12)';
@@ -49,7 +54,7 @@ class Background {
   }
 
   draw(ctx, t, streak = 0) {
-    ctx.fillStyle = BRAND.bg;
+    ctx.fillStyle = this.base;
     ctx.fillRect(0, 0, W, H);
     // grid with slow parallax
     ctx.drawImage(this.grid, -60 + Math.sin(t * 0.2) * 20, -60 - ((t * 8) % 60), W + 120, H + 120);
@@ -58,9 +63,16 @@ class Background {
     ctx.globalCompositeOperation = 'lighter';
     const gx = 540 + this.nx(t * 0.25) * 160;
     const gy = 760 + this.ny(t * 0.25) * 200;
-    const pulse = 1 + 0.06 * Math.sin(t * 1.3);
+    // kick pump: the glow swells and brightens on every beat, then eases off
+    const kick = this.beat ? Math.exp(-(t % this.beat) / 0.13) : 0;
+    const pulse = 1 + 0.06 * Math.sin(t * 1.3) + 0.07 * kick;
+    ctx.globalAlpha = 1;
     ctx.drawImage(this.glow, gx - 700 * pulse, gy - 700 * pulse, 1400 * pulse, 1400 * pulse);
-    ctx.globalAlpha = 0.55;
+    if (kick > 0.02) {
+      ctx.globalAlpha = 0.35 * kick;
+      ctx.drawImage(this.glow, gx - 800, gy - 800, 1600, 1600);
+    }
+    ctx.globalAlpha = 0.55 * Math.min(this.bright, 1.6);
     ctx.drawImage(this.glow, 540 - this.nx(t * 0.2 + 9) * 200 - 600, 1500 - 600, 1200, 1200);
     // particles
     for (const p of this.parts) {
@@ -79,7 +91,7 @@ class Background {
 // ---------- post: bloom + vignette ----------
 
 class Post {
-  constructor() {
+  constructor(o = {}) {
     this.sw = (W * RES.s) / 4;
     this.sh = (H * RES.s) / 4;
     this.small = createCanvas(this.sw, this.sh);
@@ -88,7 +100,7 @@ class Post {
     const v = this.vig.getContext('2d');
     const vg = v.createRadialGradient(W / 2, H * 0.45, H * 0.25, W / 2, H * 0.45, H * 0.72);
     vg.addColorStop(0, 'rgba(0,0,0,0)');
-    vg.addColorStop(1, 'rgba(0,0,0,0.62)');
+    vg.addColorStop(1, `rgba(0,0,0,${o.vignette ?? 0.62})`);
     v.fillStyle = vg;
     v.fillRect(0, 0, W, H);
     this.tmp = layer();

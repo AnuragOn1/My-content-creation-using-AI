@@ -106,6 +106,16 @@ def main(spec_path, out_dir):
                          "end": round(off + dur, 3), "words": words})
         audio.append(samples.astype(np.float32))
         gap = int(seg.get("gap_after", vcfg.get("gap", 0.12)) * sr)
+        snap = spec.get("snap")
+        if snap:
+            # beat sync: the next line starts `lead` seconds after a beat, so every
+            # scene cut (placed `lead` before the line) lands exactly on the beat
+            period = 60.0 / snap["bpm"] * snap.get("every", 1)
+            lead_s = snap.get("lead", 0.1)
+            earliest = (cursor + len(samples) + gap) / sr
+            k = int(np.ceil((earliest - snap.get("offset", 0.0) - lead_s) / period - 1e-9))
+            target = snap.get("offset", 0.0) + k * period + lead_s
+            gap = int(round(target * sr)) - (cursor + len(samples))
         audio.append(np.zeros(gap, np.float32))
         cursor += len(samples) + gap
         print(f"  {seg['id']:<8} {off:6.2f}s -> {off + dur:6.2f}s  {len(text_words)} words")

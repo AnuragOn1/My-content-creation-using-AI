@@ -42,8 +42,9 @@ function makeRenderer(reelDir) {
   const tl = new Timeline(JSON.parse(fs.readFileSync(path.join(build, 'timeline.json'), 'utf8')));
   const cues = new Cues();
   const S = require(path.resolve(reelDir, 'scenes.js'))({ tl, cues, D, core, fx });
-  const bg = new fx.Background();
-  const post = new fx.Post();
+  const bgo = spec.bg || {};
+  const bg = new fx.Background(3, { bright: bgo.bright, bpm: spec.snap && spec.snap.bpm });
+  const post = new fx.Post({ vignette: bgo.vignette });
   const shake = new fx.Shake(S.shakes);
   const caps = fx.buildCaptions(tl.words());
   const out = createCanvas(DW, DH);

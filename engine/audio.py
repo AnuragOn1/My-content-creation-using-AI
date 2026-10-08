@@ -414,7 +414,20 @@ def main():
     duck = 1 - 0.6 * np.clip(env / 0.25, 0, 1)
 
     title_start = next((c["t"] for c in cues["cues"] if c["type"] in ("wipe", "whoosh")), 2.3)
-    bed = music(dur, a.bpm, (title_start + 0.25, dur - 0.8))
+    spec = json.loads((Path(a.reel) / "reel.json").read_text())
+    bpm = (spec.get("snap") or {}).get("bpm", a.bpm)
+    track = (spec.get("music") or {}).get("track")
+    if track:
+        # an external (e.g. trending) song: used for the sync preview mix only
+        tp = Path(a.reel) / track
+        start = spec["music"].get("start", 0.0)
+        raw = subprocess.run(["ffmpeg", "-v", "error", "-ss", str(start), "-t", str(dur + 1), "-i", str(tp),
+                              "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True, check=True).stdout
+        bed = np.zeros(n)
+        tr = np.frombuffer(raw, np.float32).astype(np.float64)[:n]
+        bed[: len(tr)] = tr
+    else:
+        bed = music(dur, bpm, (title_start + 0.25, dur - 0.8))
     bed = norm(bed, 1.0) * 0.17 * duck
     fade = np.ones(n)
     fl = int(0.5 * SR)
@@ -442,17 +455,26 @@ def main():
     voice = at_lufs(voice, V, "voice")
     bed = at_lufs(bed, V - a.music_lu, "music")
     fx = at_lufs(fx, V - a.sfx_lu, "sfx")
-    mix = voice + bed + fx
-    # gain to target loudness, limit peaks, repeat once to make up what the limiter took
-    for _ in range(6):
-        sf.write(build / "mix.wav", mix, SR)
-        cur, _ = lufs(build / "mix.wav")
-        if abs(cur - a.lufs) < 0.15:
-            break
-        mix = limiter(mix * 10 ** ((a.lufs - cur) * 1.4 / 20))
-    sf.write(build / "mix.wav", mix.astype(np.float32), SR, subtype="FLOAT")
+    # with an external track, also write a music-free mix: post that one and add the
+    # song inside Instagram (licensed, and the reel shows up on the sound's page)
+    mixes = [("mix.wav", voice + bed + fx)]
+    if track:
+        mixes.append(("mix_nomusic.wav", voice + fx))
+    for name, mix in mixes:
+        write_mix(build / name, mix, a.lufs)
     i, p = lufs(build / "mix.wav")
     print(f"mix: {i:.1f} LUFS, peak {p} dBFS | music {a.music_lu} LU and SFX {a.sfx_lu} LU under the voice")
+
+
+def write_mix(path, mix, target):
+    # gain to target loudness, limit peaks, repeat once to make up what the limiter took
+    for _ in range(6):
+        sf.write(path, mix, SR)
+        cur, _ = lufs(path)
+        if abs(cur - target) < 0.15:
+            break
+        mix = limiter(mix * 10 ** ((target - cur) * 1.4 / 20))
+    sf.write(path, mix.astype(np.float32), SR, subtype="FLOAT")
 
 
 if __name__ == "__main__":
