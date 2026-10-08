@@ -1,0 +1,12 @@
+{
+  "name": "reel-engine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Renders 1080x1920 Instagram Reels from a voice timeline + scene file",
+  "scripts": {
+    "render": "node render.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.10"
+  }
+}

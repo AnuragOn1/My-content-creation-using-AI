@@ -1,0 +1,52 @@
+{
+  "day": 1,
+  "title": "You're using AI wrong: the 4-part prompt",
+  "voice": {
+    "name": "af_heart",
+    "speed": 1.2,
+    "gap": 0.14,
+    "lead_in": 0.05
+  },
+  "segments": [
+    {
+      "id": "hook",
+      "say": "You're using AI wrong.",
+      "gap_after": 0.4
+    },
+    {
+      "id": "title",
+      "say": "Day one. The four-part prompt that fixes it.",
+      "show": "Day 01. The 4-part prompt that fixes it."
+    },
+    {
+      "id": "problem",
+      "say": "Most people type: write me a cover letter. And get something generic.",
+      "gap_after": 0.5
+    },
+    {
+      "id": "fix",
+      "say": "Four parts. Role: senior tech recruiter. Task: cover letter, frontend role at Flipkart. Context: two years in sales, three React projects. Format: under one-fifty words, confident.",
+      "show": "4 parts. Role: senior tech recruiter. Task: cover letter, frontend role at Flipkart. Context: 2 years in sales, 3 React projects. Format: under 150 words, confident."
+    },
+    {
+      "id": "proof",
+      "say": "Same AI. Before: generic. After: specific, confident, human.",
+      "gap_after": 0.6
+    },
+    {
+      "id": "recap",
+      "say": "Role, task, context, format. Save this.",
+      "gap_after": 0.7
+    },
+    {
+      "id": "tease",
+      "say": "Tomorrow, day two: make AI write exactly like you. Follow so you don't miss it.",
+      "show": "Tomorrow, Day 02: make AI write exactly like you. Follow so you don't miss it."
+    }
+  ],
+  "glass": "blue",
+  "cover": {
+    "scene": "hook",
+    "t": 2.1
+  }
+}

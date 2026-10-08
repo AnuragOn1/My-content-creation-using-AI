@@ -1,0 +1,17 @@
+You're using AI wrong. Here's the 4-part prompt that fixes it 👇
+
+Every good prompt has 4 parts:
+
+1️⃣ ROLE: who the AI should be ("You are a senior tech recruiter.")
+2️⃣ TASK: exactly what to make ("Write a cover letter for a Frontend Developer role at Flipkart.")
+3️⃣ CONTEXT: what it needs to know ("I have 2 years in sales and built 3 React projects.")
+4️⃣ FORMAT: length, structure, tone ("Under 150 words, 3 short paragraphs, confident tone.")
+
+Template: You are a [ROLE]. [TASK]. Context: [CONTEXT]. Format: [FORMAT].
+
+🔖 Save this and try it on your next prompt.
+
+Tomorrow, Day 02: make AI write exactly like YOU.
+Follow @promptwithanurag for one AI lesson a day ⚡
+
+#AI #ChatGPT #ClaudeAI #PromptEngineering #AITools #AITips #LearnAI #Productivity #TechCareers #SoftwareEngineer #CodingLife #CareerGrowth #IndiaTech #Day01

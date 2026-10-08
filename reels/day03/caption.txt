@@ -1,0 +1,17 @@
+Stop asking AI. Make it ask YOU. 👇
+
+One vague prompt = AI fills the gaps with guesses.
+Fix it with one line:
+
+1️⃣ ASK FIRST: add "Before you start, ask me 5 questions you need answered."
+2️⃣ ANSWER: give real details (time, deadline, level, tools, goal)
+3️⃣ THEN WRITE: let it build the plan around YOUR answers
+
+Example: "make me a DSA study plan" went from a generic week-by-week list to a 6-week, 2 hrs/day Python plan that starts graphs from zero (my weak spot).
+
+🔖 Save this and paste the line into your next big prompt.
+
+Tomorrow, Day 04: break big tasks into steps (prompt chaining).
+Follow @promptwithanurag for one AI lesson a day ⚡
+
+#AI #ChatGPT #ClaudeAI #PromptEngineering #AITools #AITips #LearnAI #Productivity #TechCareers #SoftwareEngineer #CodingLife #CareerGrowth #IndiaTech #Day03
