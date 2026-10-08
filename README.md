@@ -60,6 +60,7 @@ Logo: an original terminal-prompt tile (blue rounded square, dark `>`, blinking 
 |-----|--------|--------|-------------|-----------|-------|--------|---------|-------|
 | 01 | | 33.5s (remade, was 41s) | | | | | | |
 | 02 | | 32.4s, 4K | | | | | | |
+| 03 | | 29.9s, 4K, liquid glass, beat-synced | | | | | | |
 
 ## 4K renders
 
