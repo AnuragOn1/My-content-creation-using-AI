@@ -1,4 +1,4 @@
-// DAY 03: "Make AI ask YOU questions first"
+// DAY 03: "Stop asking AI. Make it ask YOU."
 // Scene cuts land on the beat (reel.json "snap"); everything else is pinned to spoken words.
 
 module.exports = function build({ tl, cues, D, core }) {
@@ -53,11 +53,11 @@ module.exports = function build({ tl, cues, D, core }) {
   const MAGIC = 'Before you start, ask me 5 questions you need answered.';
 
   // =====================================================================
-  // 1. HOOK: "Stop answering AI. Make it ask you."
+  // 1. HOOK: "Stop asking AI. Make it ask you."
   // =====================================================================
   const hook = (() => {
     const tMake = w('hook', 'make');
-    const tAsk = w('hook', 'ask');
+    const tAsk = w('hook', 'ask', 1); // 0 is "asking"
     const tYou = w('hook', 'you');
     const L3 = line(['MAKE', 'IT'], 100, F.k);
     const L4 = line(['ASK', 'YOU'], 170, F.k);
@@ -95,7 +95,7 @@ module.exports = function build({ tl, cues, D, core }) {
       ctx.globalAlpha = 1;
 
       D.slam(ctx, 'STOP', CX, 760, 190, F.k, BRAND.bad, t, -0.32, { from: 1.8, glow: 'rgba(255,92,108,0.6)' });
-      D.slam(ctx, 'ANSWERING AI.', CX, 880, 96, F.k, BRAND.text, t, -0.26);
+      D.slam(ctx, 'ASKING AI.', CX, 880, 110, F.k, BRAND.text, t, -0.26);
       D.slam(ctx, 'MAKE', L3[0].cx, 1030, 100, F.k, BRAND.text, t, tMake - 0.05);
       D.slam(ctx, 'IT', L3[1].cx, 1030, 100, F.k, BRAND.text, t, tMake + 0.1);
       D.highlight(ctx, L4[1].left - 18, 1190 - 142, L4[1].width + 36, 172, t, tYou - 0.12);
