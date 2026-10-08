@@ -281,10 +281,22 @@ function panel(ctx, P, t, t0, o = {}) {
   const useGlass = theme.glass && o.glass !== false;
   ctx.save();
   if (pf > 0 && useGlass) {
+    // liquid mode: the pane lands with a jelly squash-and-stretch
+    const jt = t - (t0 + td * 0.5);
+    const jelly = theme.glass === 'liquid' && jt >= 0 && jt < 0.7 ? Math.sin(jt * 22) * Math.exp(-jt * 6) * 0.05 : 0;
+    ctx.save();
+    if (jelly) {
+      const jx = P.x + P.w / 2;
+      const jy = P.y + P.h / 2;
+      ctx.translate(jx, jy);
+      ctx.scale(1 + jelly, 1 - jelly);
+      ctx.translate(-jx, -jy);
+    }
     glass(ctx, P.x, P.y, P.w, P.h, P.r, {
       alpha: pf, tone: o.tone, color: o.color, t, glow: o.glow, border: o.border, lw: o.lw,
       darken: o.darken, saturate: o.saturate, refract: o.refract,
     });
+    ctx.restore();
   } else if (pf > 0) {
     ctx.save();
     ctx.globalAlpha *= pf * (o.fillAlpha ?? 0.94);
@@ -657,12 +669,17 @@ function pill(ctx, label, cx, cy, t, t0, o = {}) {
   ctx.save();
   ctx.globalAlpha *= a;
   ctx.translate(cx, cy + (1 - p) * 30);
-  ctx.fillStyle = o.bg || 'rgba(56,132,255,0.14)';
-  ctx.strokeStyle = o.border || 'rgba(56,132,255,0.55)';
-  ctx.lineWidth = 2;
-  rr(ctx, -w / 2, -h / 2, w, h, h / 2);
-  ctx.fill();
-  ctx.stroke();
+  if (theme.glass === 'liquid' && !theme.cheap && o.bg !== BRAND.bad) {
+    // liquid mode: label pills are small glass capsules
+    glass(ctx, -w / 2, -h / 2, w, h, h / 2, { t, color: o.dot === BRAND.bad || o.tone === 'bad' ? 'red' : 'liquid', shadow: false });
+  } else {
+    ctx.fillStyle = o.bg || 'rgba(56,132,255,0.14)';
+    ctx.strokeStyle = o.border || 'rgba(56,132,255,0.55)';
+    ctx.lineWidth = 2;
+    rr(ctx, -w / 2, -h / 2, w, h, h / 2);
+    ctx.fill();
+    ctx.stroke();
+  }
   if (o.dot) {
     ctx.fillStyle = o.dot;
     ctx.shadowColor = o.dot;

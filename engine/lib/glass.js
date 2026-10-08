@@ -19,6 +19,18 @@ const TINTS = {
   blue: { rgb: [56, 132, 255], rim: [190, 220, 255], sat: 130, alpha: 0.11 },
   red: { rgb: [255, 92, 108], rim: [255, 205, 210], sat: 35, alpha: 0.26 },
   neutral: { rgb: [170, 185, 215], rim: [240, 245, 255], sat: 110, alpha: 0.05 },
+  // clear blue glass: barely frosted, deep lens edge, blue at the edges (fresnel), glare streak
+  clear: {
+    rgb: [70, 150, 255], rim: [205, 230, 255], sat: 150, alpha: 0.05,
+    blur: 2.5, blurSmall: 1.5, darken: 0.03, frost: 0, bevel: 54, refract: 1.1,
+    fresnel: 0.45, glare: 2.4, peak: 1,
+  },
+  // Apple-style liquid glass: see-through, magnifying lens, hard bend at the rim, bright specular
+  liquid: {
+    rgb: [80, 155, 255], rim: [215, 235, 255], sat: 145, alpha: 0.035,
+    blur: 1, blurSmall: 0.6, darken: 0, frost: 0.015, bevel: 64, refract: 0.38,
+    fresnel: 0.3, glare: 2.6, peak: 1, magnify: 1.06, specular: 1,
+  },
 };
 
 // Global look, set per reel: 'blue' | 'red' | 'mixed' | null (solid panels).
@@ -28,7 +40,7 @@ const theme = { glass: null, under: null, cheap: false };
 
 function toneColor(tone) {
   const mode = theme.glass;
-  if (mode === 'blue' || mode === 'red') return mode;
+  if (mode === 'blue' || mode === 'red' || mode === 'clear' || mode === 'liquid') return mode;
   // mixed: clear glass for neutral UI, red only on "wrong" examples, blue otherwise
   if (tone === 'bad') return 'red';
   if (tone === 'neutral') return 'neutral';
@@ -134,9 +146,9 @@ function glass(ctx, x, y, w, h, r, o = {}) {
   w = Math.round(w);
   h = Math.round(h);
   const small = Math.min(w, h) < 140;
-  const bevel = o.bevel ?? Math.round(Math.min(small ? 18 : 40, Math.min(w, h) / 3));
-  const strength = o.refract ?? 0.95;
-  const blur = o.blur ?? (small ? 4 : 7);
+  const bevel = o.bevel ?? Math.round(Math.min(small ? 18 : tint.bevel ?? 40, Math.min(w, h) / 3));
+  const strength = o.refract ?? tint.refract ?? 0.95;
+  const blur = o.blur ?? (small ? tint.blurSmall ?? 4 : tint.blur ?? 7);
   const m = Math.ceil(bevel * strength) + 6;
   const t = o.t ?? 0;
   // the pixel work happens at output resolution (k px per scene unit)
@@ -164,7 +176,14 @@ function glass(ctx, x, y, w, h, r, o = {}) {
     c2.globalAlpha = 1;
     c2.fillStyle = '#080A10';
     c2.fillRect(0, 0, W2, H2);
-    c2.setTransform(k * ia, k * ib, k * ic, k * id, k * (ie - (x - m)), k * (iff - (y - m)));
+    // optional lens magnification about the pane's centre
+    const mg = o.magnify ?? tint.magnify ?? 1;
+    const lcx = (w / 2 + m) * k;
+    const lcy = (h / 2 + m) * k;
+    c2.setTransform(
+      mg * k * ia, mg * k * ib, mg * k * ic, mg * k * id,
+      mg * (k * (ie - (x - m)) - lcx) + lcx, mg * (k * (iff - (y - m)) - lcy) + lcy,
+    );
     c2.filter = `blur(${bl}px) ${filt}`;
     if (theme.under && theme.under !== ctx.canvas) c2.drawImage(theme.under, 0, 0);
     c2.drawImage(ctx.canvas, 0, 0);
@@ -243,10 +262,38 @@ function glass(ctx, x, y, w, h, r, o = {}) {
   tg1.addColorStop(1, `rgba(${tr},${tg},${tb},${ta * 0.75})`);
   ctx.fillStyle = tg1;
   ctx.fillRect(x, y, w, h);
-  ctx.fillStyle = 'rgba(255,255,255,0.03)';
+  ctx.fillStyle = `rgba(255,255,255,${tint.frost ?? 0.03})`;
   ctx.fillRect(x, y, w, h);
-  ctx.fillStyle = `rgba(8,10,16,${o.darken ?? (small ? 0.12 : 0.16)})`;
+  ctx.fillStyle = `rgba(8,10,16,${o.darken ?? tint.darken ?? (small ? 0.12 : 0.16)})`;
   ctx.fillRect(x, y, w, h);
+  if (tint.fresnel) {
+    // thick glass looks deeper in colour toward its edges and clear in the middle
+    ctx.save();
+    ctx.filter = `blur(${small ? 6 : 14}px)`;
+    ctx.strokeStyle = `rgba(${tr},${tg},${tb},${tint.fresnel})`;
+    ctx.lineWidth = small ? 16 : 44;
+    rrPath(ctx, x, y, w, h, r);
+    ctx.stroke();
+    ctx.restore();
+  }
+  if (tint.glare) {
+    // a soft diagonal reflection streak that slides slowly with the light
+    ctx.save();
+    ctx.globalCompositeOperation = 'screen';
+    const drift = Math.sin(t * 0.5) * 0.06;
+    const gl = ctx.createLinearGradient(x, y, x + w, y + h * 0.9);
+    const a0 = 0.2 + drift;
+    gl.addColorStop(0, 'rgba(255,255,255,0)');
+    gl.addColorStop(Math.max(0, a0 - 0.06), 'rgba(255,255,255,0)');
+    gl.addColorStop(a0, `rgba(220,235,255,${0.07 * tint.glare})`);
+    gl.addColorStop(a0 + 0.05, 'rgba(255,255,255,0)');
+    gl.addColorStop(a0 + 0.09, `rgba(220,235,255,${0.035 * tint.glare})`);
+    gl.addColorStop(a0 + 0.12, 'rgba(255,255,255,0)');
+    gl.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gl;
+    ctx.fillRect(x, y, w, h);
+    ctx.restore();
+  }
   const sheen = ctx.createLinearGradient(x, y, x, y + Math.min(h, 220));
   sheen.addColorStop(0, 'rgba(255,255,255,0.05)');
   sheen.addColorStop(1, 'rgba(255,255,255,0)');
@@ -267,10 +314,22 @@ function glass(ctx, x, y, w, h, r, o = {}) {
   ctx.restore();
 
   // 5. crisp specular rim
-  ctx.strokeStyle = rimGradient(ctx, ang, cx, cy, tint.rim, 0.95);
-  ctx.lineWidth = small ? 2 : 3;
+  ctx.strokeStyle = rimGradient(ctx, ang, cx, cy, tint.rim, tint.peak ?? 0.95);
+  ctx.lineWidth = small ? 2 : tint.peak ? 3.5 : 3;
   rrPath(ctx, x + 1, y + 1, w - 2, h - 2, Math.max(0, r - 1));
   ctx.stroke();
+  if (tint.specular) {
+    // second, inset highlight: the light catching the inner face of a thick rounded edge
+    const ins = small ? 3 : 7;
+    ctx.save();
+    ctx.filter = `blur(${small ? 0.8 : 1.6}px)`;
+    ctx.globalAlpha *= 0.75 * tint.specular;
+    ctx.strokeStyle = rimGradient(ctx, ang, cx, cy, tint.rim, 1);
+    ctx.lineWidth = small ? 1.5 : 2.5;
+    rrPath(ctx, x + ins, y + ins, w - 2 * ins, h - 2 * ins, Math.max(0, r - ins));
+    ctx.stroke();
+    ctx.restore();
+  }
   if (o.border) {
     ctx.strokeStyle = o.border;
     ctx.lineWidth = o.lw ?? 2;

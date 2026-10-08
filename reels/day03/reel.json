@@ -1,0 +1,20 @@
+{
+  "day": 3,
+  "title": "Make AI ask YOU questions first",
+  "glass": "clear",
+  "res": 2,
+  "grain": 0,
+  "voice": {"name": "af_heart", "speed": 1.2, "gap": 0.14, "lead_in": 0.05},
+  "segments": [
+    {"id": "hook",    "say": "Stop answering AI. Make it ask you.", "gap_after": 0.3},
+    {"id": "title",   "say": "Day three. Make AI interview you first.",
+                      "show": "Day 03. Make AI interview you first."},
+    {"id": "problem", "say": "Most people type one vague line, and AI fills the gaps with guesses.", "gap_after": 0.4},
+    {"id": "fix",     "say": "Add one line to any big prompt: before you start, ask me five questions you need answered. Answer them. Then let it write.",
+                      "show": "Add one line to any big prompt: before you start, ask me 5 questions you need answered. Answer them. Then let it write."},
+    {"id": "proof",   "say": "Same request. Before: a generic plan. After: a plan built around you.", "gap_after": 0.6},
+    {"id": "recap",   "say": "Ask first. Answer. Then write. Save this.", "gap_after": 0.5},
+    {"id": "tease",   "say": "Tomorrow, day four: break big tasks into steps. Follow so you don't miss it.",
+                      "show": "Tomorrow, Day 04: break big tasks into steps. Follow so you don't miss it."}
+  ]
+}
